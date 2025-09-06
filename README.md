@@ -36,9 +36,9 @@ npm run dev
 ---
 
 ## 📌 Future Improvements
-- ** Connect to a backend / database
-- ** Add authentication (user login/register)
-- ** Booking confirmation flow
-- ** Payment integration
+- ✅ Connect to a backend / database
+- ✅ Add authentication (user login/register)
+- ✅ Booking confirmation flow
+- ✅ Payment integration
 
 
