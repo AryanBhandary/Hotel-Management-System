@@ -32,7 +32,6 @@ const rooms: Room[] = [
     parking: "Free on-site parking",
     accessible: true,
     specialFeatures: ["Balcony"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 2,
@@ -63,7 +62,6 @@ const rooms: Room[] = [
     parking: "Paid parking nearby",
     accessible: true,
     specialFeatures: ["Work Desk"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 3,
@@ -95,7 +93,6 @@ const rooms: Room[] = [
     parking: "Valet parking available",
     accessible: true,
     specialFeatures: ["Kitchenette", "Living Area", "Balcony"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 4,
@@ -126,7 +123,6 @@ const rooms: Room[] = [
     parking: "Free on-site parking",
     accessible: false,
     specialFeatures: ["Balcony"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 5,
@@ -158,7 +154,6 @@ const rooms: Room[] = [
     parking: "Free valet parking",
     accessible: true,
     specialFeatures: ["Spa Access", "Balcony"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 6,
@@ -190,7 +185,6 @@ const rooms: Room[] = [
     parking: "Underground parking",
     accessible: true,
     specialFeatures: ["Kitchenette", "Balcony", "Dining Area"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 7,
@@ -222,7 +216,6 @@ const rooms: Room[] = [
     parking: "Free on-site parking",
     accessible: false,
     specialFeatures: ["Mini Bar", "Balcony"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 8,
@@ -254,7 +247,6 @@ const rooms: Room[] = [
     parking: "Paid parking nearby",
     accessible: true,
     specialFeatures: ["Compact Design"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 9,
@@ -286,7 +278,6 @@ const rooms: Room[] = [
     parking: "Valet parking",
     accessible: true,
     specialFeatures: ["Private Spa", "Balcony"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 10,
@@ -318,7 +309,6 @@ const rooms: Room[] = [
     parking: "Underground parking",
     accessible: true,
     specialFeatures: ["Lounge Area", "Kitchenette"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 11,
@@ -350,7 +340,6 @@ const rooms: Room[] = [
     parking: "Free on-site parking",
     accessible: true, 
     specialFeatures: ["Balcony", "Poolside Access"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 12,
@@ -382,7 +371,6 @@ const rooms: Room[] = [
     parking: "Paid parking nearby",
     accessible: true,
     specialFeatures: ["Work Desk", "Soundproof Walls"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
   {
     id: 13,
@@ -413,9 +401,7 @@ const rooms: Room[] = [
     smokingPolicy: "Non-smoking",
     parking: "Underground parking",
     accessible: true, 
-    specialFeatures: ["Balcony", "Kitchenette", "Dining Area"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
-  },
+    specialFeatures: ["Balcony", "Kitchenette", "Dining Area"],  },
   {
     id: 14,
     availability: true,
@@ -445,9 +431,7 @@ const rooms: Room[] = [
     smokingPolicy: "Non-smoking",
     parking: "Street parking available",
     accessible: true,
-    specialFeatures: ["Compact Design"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
-  },
+    specialFeatures: ["Compact Design"],  },
   {
     id: 15,
     availability: true,
@@ -478,7 +462,6 @@ const rooms: Room[] = [
     parking: "Valet parking available",
     accessible: true,
     specialFeatures: ["Private Spa", "Balcony"],
-    mapLink:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5857261638184!2d85.35409947626444!3d27.699196225849416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1a266b342bc5%3A0x73bbfa829a89af1b!2sTribhuvan%20International%20Airport!5e0!3m2!1sen!2snp!4v1756478325413!5m2!1sen!2snp"
   },
 ];
 

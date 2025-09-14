@@ -1,20 +1,16 @@
-import { useWindowSize } from "../hooks/useWindowSize";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FeaturedRooms from "../components/FeaturedRooms";
 import HotelServices from "../components/HotelServices";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
 
 function GetStarted() {
   const navigate = useNavigate();
-  const { width } = useWindowSize();
-  const isMobile = width < 768;
 
   // State for custom dropdown
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const roomOptions = ["All", "Single", "Double", "Suite", "Family Suite",  ];
+  const roomOptions = ["All", "Single", "Double", "Suite", "Family Suite"];
 
   return (
     <>
@@ -27,25 +23,27 @@ function GetStarted() {
         />
 
         <div
-          className={`absolute top-1/2 left-1/2 w-[90%] max-w-4xl p-6 -translate-x-1/2 -translate-y-1/2 bg-white/70 flex flex-col 
-            ${isMobile ? "gap-4" : "md:flex-row items-center justify-between gap-4"} rounded-xl z-50`}
+          className="absolute top-[50%] left-[50%] w-[800px] p-6 -translate-x-[50%] -translate-y-[50%] 
+            bg-white/70 flex flex-row items-center justify-between gap-4 rounded-xl z-50"
         >
-          <div className="flex flex-col w-[18%]">
+          {/* Check-in */}
+          <div className="flex flex-col w-[140px]">
             <label htmlFor="in" className="text-black mb-1">
               Check-in Date:
             </label>
             <input type="date" id="in" className="p-2 rounded bg-gray-50/70" />
           </div>
 
-          <div className="flex flex-col w-[18%]">
+          {/* Check-out */}
+          <div className="flex flex-col w-[140px]">
             <label htmlFor="out" className="text-black mb-1">
               Check-out Date:
             </label>
             <input type="date" id="out" className="p-2 rounded bg-gray-50/70" />
           </div>
 
-          {/* Custom Dropdown */}
-          <div className="flex flex-col relative w-[18%]">
+          {/* Room Category Dropdown */}
+          <div className="flex flex-col relative w-[140px]">
             <label className="text-black mb-1">Room Category:</label>
             <div className="relative w-full">
               <button
@@ -74,7 +72,8 @@ function GetStarted() {
             </div>
           </div>
 
-          <div className="flex flex-col w-[18%]">
+          {/* Guests */}
+          <div className="flex flex-col w-[140px]">
             <label htmlFor="guest" className="text-black mb-1">
               Guests:
             </label>
@@ -87,9 +86,10 @@ function GetStarted() {
             />
           </div>
 
-          <div className="flex flex-col">
+          {/* Book Now Button */}
+          <div className="flex flex-col w-[120px]">
             <div className="text-black mb-1 font-bold">All Set?</div>
-            <button className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition">
+            <button className="bg-red-600 text-white p-2 rounded hover:bg-red-700 transition cursor-pointer">
               Book Now
             </button>
           </div>
@@ -97,11 +97,11 @@ function GetStarted() {
       </div>
 
       {/* Featured Rooms Section */}
-      <div className="text-center mt-10 mb-6 px-4 md:px-0">
-        <h1 className="text-xl md:text-2xl font-bold mb-2">
+      <div className="text-center mt-10 mb-6 px-4">
+        <h1 className="text-2xl font-bold mb-2">
           Featured Rooms & Suites
         </h1>
-        <p className="text-gray-500 text-sm md:text-base">
+        <p className="text-gray-500 text-base">
           Discover the perfect accommodation for your stay, from comfortable standard rooms to luxurious penthouse suites.
         </p>
       </div>
@@ -111,7 +111,7 @@ function GetStarted() {
       {/* Explore More Button */}
       <div className="w-full text-center my-8">
         <button
-          className="px-6 py-2 w-[60%] md:w-[20%] rounded-lg font-semibold border border-[var(--color-secondary-light)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary-light)] transition cursor-pointer"
+          className="px-6 py-2 w-[200px] rounded-lg font-semibold border border-[var(--color-secondary-light)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary-light)] transition cursor-pointer"
           onClick={() => navigate("/allRooms")}
         >
           Explore More

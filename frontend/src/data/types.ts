@@ -26,5 +26,4 @@ export interface Room {
   parking: string;
   accessible: boolean;
   specialFeatures: string[];
-  mapLink: string;
 }
