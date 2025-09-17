@@ -1,4 +1,3 @@
-// hooks/useResponsive.ts
 import { useState, useEffect } from "react";
 
 const useResponsive = (breakpoint: number = 768) => {
@@ -11,7 +10,6 @@ const useResponsive = (breakpoint: number = 768) => {
 
     window.addEventListener("resize", handleResize);
 
-    // Call it once to set the initial state
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);

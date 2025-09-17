@@ -60,7 +60,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
           >
             View Details
           </button>
-          <button className="bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg hover:bg-[var(--color-primary-hover)] transition cursor-pointer"
+          <button className="bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg hover:bg-[var(--color-secondary)] transition cursor-pointer"
             onClick={() => navigate("/login")}
           >
             Book Now
