@@ -20,6 +20,6 @@
   --color-border: #D1D1D1;
 
   /* Text */
-  --color-text-light-bg: #000000;
-  --color-text-dark-bg: #FFFFFF;
+  --color-text-dark-bg: #000000;
+  --color-text-light-bg: #FFFFFF;
 }
