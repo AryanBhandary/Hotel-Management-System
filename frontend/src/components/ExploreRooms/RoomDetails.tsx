@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import rooms from "../data/roomsData";
-import { FaBed, FaBuilding, FaStar, FaUsers } from "react-icons/fa";
+import rooms from "../../data/roomsData";
+import { FaBed, FaBuilding, FaClipboardList, FaConciergeBell, FaGem, FaHotel, FaStar, FaUsers } from "react-icons/fa";
 
 export default function RoomDetails() {
   const { id } = useParams();
@@ -134,7 +134,7 @@ export default function RoomDetails() {
                     return (
                       <li
                         key={guestNum}
-                        className={`p-2 hover:bg-[var(--color-secondary-light)] text-[var(--color-text-light-bg)] cursor-pointer ${guestNum === selectedGuests ? "font-semibold bg-gray-200" : ""
+                        className={`p-2 hover:bg-[var(--color-secondary-light)] text-[var(--color-text-dark-bg)] cursor-pointer ${guestNum === selectedGuests ? "font-semibold bg-gray-200" : ""
                           }`}
                         onClick={() => {
                           setSelectedGuests(guestNum);
@@ -175,17 +175,29 @@ export default function RoomDetails() {
         {/* Amenities Section */}
         <div className="flex justify-center max-w-6xl mx-auto gap-2 text-left">
           <div className="w-[53%] border border-[var(--color-secondary-light)] rounded-2xl p-4">
-            <div>
-              <h1 className="text-[17px] font-[700]">Room Description</h1>
+
+            <div className="mb-4">
+              <div className="flex items-center gap-2">
+                <div><FaClipboardList /></div>
+                <div className="text-[17px] font-[700]">Room Description</div>
+              </div>
               <div className="text-[var(--color-secondary)] text-s">{room.description}</div>
             </div>
+
+
             <div>
-              <span className="text-[17px] font-[700]">Room Service </span>
-              <span className="text-[var(--color-secondary)] text-s">{room.roomService}</span>
+              <div className="flex items-center gap-2">
+                <div><FaConciergeBell /></div>
+                <div className="text-[17px] font-[700]">Room Service</div>
+              </div>
+              <div className="text-[var(--color-secondary)] text-s">{room.roomService}</div>
             </div>
           </div>
           <div className="w-[53%] border border-[var(--color-secondary-light)] rounded-2xl p-4">
-            <h1 className="text-[17px] font-[700]">Special Features</h1>
+            <div className="flex items-center gap-2">
+              <div><FaGem /></div>
+              <div className="text-[17px] font-[700]">Special Features</div>
+            </div>
             {room.specialFeatures.map((Feature, id) => (
               <span
                 key={id}
@@ -196,7 +208,10 @@ export default function RoomDetails() {
             ))}
           </div>
           <div className="w-[53%] border border-[var(--color-secondary-light)] rounded-2xl p-4">
-            <h1 className="text-[17px] font-[700]">Amenities</h1>
+            <div className="flex items-center gap-2">
+              <div><FaHotel /></div>
+              <div className="text-[17px] font-[700]">Amenities</div>
+            </div>
             {room.amenities.map((amenity, idx) => (
               <span
                 key={idx}
