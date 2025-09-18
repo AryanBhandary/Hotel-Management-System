@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import rooms from "../../data/roomsData";
+import rooms from "../../constants/roomsData";
 import { FaBed, FaBuilding, FaClipboardList, FaConciergeBell, FaGem, FaHotel, FaStar, FaUsers } from "react-icons/fa";
 
 export default function RoomDetails() {

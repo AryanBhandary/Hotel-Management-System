@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import type { Room } from "../data/types";
+import type { Room } from "../../constants/types";
 import { CheckCircle, XCircle } from "lucide-react";
 
 interface RoomCardProps {
@@ -53,14 +53,14 @@ const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
           </div>
         </div>
 
-        <div className="mt-auto flex justify-end">
+        <div className="mt-auto flex justify-end gap-4">
           <button
-            className="bg-white text-[var(--color-secondary)] px-6 py-2 rounded-lg border border-[var(--color-secondary-light)] hover:bg-[var(--color-secondary-light)] transition cursor-pointer mr-3"
+            className="view-btn"
             onClick={() => navigate(`/rooms/${room.id}`)}
           >
             View Details
           </button>
-          <button className="bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg hover:bg-[var(--color-secondary)] transition cursor-pointer"
+          <button className="book-btn"
             onClick={() => navigate("/login")}
           >
             Book Now
