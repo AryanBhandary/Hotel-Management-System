@@ -1,6 +1,6 @@
 import { FaUsers } from "react-icons/fa";
-import rooms from "../data/roomsData";
-import type { Room } from "../data/types";
+import rooms from "../../constants/roomsData";
+import type { Room } from "../../constants/types";
 import { useNavigate } from "react-router-dom";
 
 function FeaturedRooms() {
@@ -58,13 +58,13 @@ function FeaturedRooms() {
                 </div>
                 <div className="mt-auto flex justify-center gap-5">
                   <button
-                    className="min-w-[140px] text-center bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg hover:bg-[var(--color-primary-hover)] transition cursor-pointer"
+                    className="book-btn"
                     onClick={() => navigate("/login")}
                   >
                     Book Now
                   </button>
                   <button
-                    className="min-w-[140px] text-center bg-white text-[var(--color-secondary)] px-6 py-2 rounded-lg border border-[var(--color-secondary-light)] hover:bg-[var(--color-secondary-light)] transition cursor-pointer"
+                    className="view-btn"
                     onClick={() => navigate(`/rooms/${room.id}`)}
                   >
                     View Details

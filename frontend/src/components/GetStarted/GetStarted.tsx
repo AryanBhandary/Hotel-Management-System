@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FeaturedRooms from "../components/FeaturedRooms";
-import HotelServices from "../components/HotelServices";
-import HotelCinematic from "../assets/HotelCinematic.mp4";
+import FeaturedRooms from "./FeaturedRooms";
+import HotelServices from "./HotelServices";
 
 function GetStarted() {
   const navigate = useNavigate();
@@ -17,13 +16,18 @@ function GetStarted() {
     <>
       <div className="relative w-full h-[600px]">
         {/* Background Video */}
-        <video
+        {/* <video
           src={HotelCinematic}
           autoPlay
           loop
           muted
           playsInline
           className="w-full h-full object-cover brightness-60"
+        /> */}
+        <img
+          src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80"
+          alt="get-started"
+          className="w-full h-full object-cover brightness-50"
         />
 
         <div className="absolute top-[60%] ml-5 z-50">
@@ -125,7 +129,7 @@ function GetStarted() {
       {/* Explore More Button */}
       <div className="w-full text-center my-8">
         <button
-          className="px-6 py-2 w-[200px] rounded-lg font-semibold border border-[var(--color-secondary-light)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary-light)] transition cursor-pointer"
+          className="view-btn"
           onClick={() => navigate("/allRooms")}
         >
           Explore More

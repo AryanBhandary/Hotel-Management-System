@@ -1,8 +1,8 @@
 import { useState, useMemo, useRef, useEffect } from "react";
-import rooms from "../../data/roomsData";
+import rooms from "../../constants/roomsData";
 import RoomCard from "./RoomCard";
 import RoomFilter from "./RoomFilter";
-import type { Room } from "../../data/types";
+import type { Room } from "../../constants/types";
 
 const roomOptions = ["All", "Single", "Double", "Family Suite", "Suite"];
 
@@ -64,19 +64,23 @@ const RoomsList: React.FC = () => {
   return (
     <>
       {/* Filters */}
-      <div className="absolute top-[45%] left-1/2 w-[90%] max-w-4xl p-6 bg-white flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl z-50 -translate-x-1/2 -translate-y-1/2 border border-[var(--color-secondary-light)]">
+      <div
+          className="absolute top-[60%] left-[50%] w-[800px] p-6 -translate-x-[50%] -translate-y-[50%] 
+            bg-[var(--color-secondary)]/30 backdrop-blur-md flex flex-row items-center justify-between gap-4 rounded-xl z-50"
+        >
+
         <div className="flex flex-col w-[18%]">
-          <label className="text-[var(--color-secondary)] mb-1">Check-in Date:</label>
+          <label className="text-[var(--color-accent)] mb-1">Check-in Date:</label>
           <input type="date" className="p-2 rounded bg-[var(--color-secondary-light)]" />
         </div>
         <div className="flex flex-col w-[18%]">
-          <label className="text-[var(--color-secondary)] mb-1">Check-out Date:</label>
+          <label className="text-[var(--color-accent)] mb-1">Check-out Date:</label>
           <input type="date" className="p-2 rounded bg-[var(--color-secondary-light)]" />
         </div>
 
         {/* Custom Room Dropdown */}
         <div className="flex flex-col relative w-[18%]">
-          <label className="text-[var(--color-secondary)] mb-1">Room Category:</label>
+          <label className="text-[var(--color-accent)] mb-1">Room Category:</label>
           <div className="relative w-full">
             <button
               type="button"
@@ -105,7 +109,7 @@ const RoomsList: React.FC = () => {
         </div>
 
         <div className="flex flex-col w-[18%]">
-          <label className="text-[var(--color-secondary)] mb-1">Guests:</label>
+          <label className="text-[var(--color-accent)] mb-1">Guests:</label>
           <input
             type="number"
             min="1"

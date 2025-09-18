@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { NavLinks } from "../../constants/NavLinks";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -24,38 +25,17 @@ function NavBar() {
 
           {/* Full Menu */}
           <div className="flex space-x-6 text-[var(--color-secondary)] font-medium">
-            <button
-              onClick={() => handleNavigate("/")}
-              className={`transition cursor-pointer ${
-                isActive("/") ? "text-[var(--color-primary)]" : ""
-              }`}
-            >
-              Explore
-            </button>
-            <button
-              onClick={() => handleNavigate("/allRooms")}
-              className={`transition cursor-pointer ${
-                isActive("/allRooms") ? "text-[var(--color-primary)]" : ""
-              }`}
-            >
-              Book a Room
-            </button>
-            <button
-              onClick={() => handleNavigate("/aboutUs")}
-              className={`transition cursor-pointer ${
-                isActive("/aboutUs") ? "text-[var(--color-primary)]" : ""
-              }`}
-            >
-              About Us
-            </button>
-            <button
-              onClick={() => handleNavigate("/contactUs")}
-              className={`transition cursor-pointer ${
-                isActive("/contactUs") ? "text-[var(--color-primary)]" : ""
-              }`}
-            >
-              Contact Us
-            </button>
+            {NavLinks.map((link) => (
+              <button
+                key={link.path}
+                onClick={() => handleNavigate(link.path)}
+                className={`transition cursor-pointer ${
+                  isActive(link.path) ? "text-[var(--color-primary)]" : ""
+                }`}
+              >
+                {link.name}
+              </button>
+            ))}
           </div>
         </div>
       </div>

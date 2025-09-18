@@ -1,9 +1,9 @@
-import RoomsList from "../components/RoomList";
+import RoomsList from "./RoomList";
 
 function AllRooms() {
   return (
     <>
-      <div className="w-full h-[400px] relative">
+      <div className="w-full h-[600px] relative">
         <img
           src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80"
           alt="get-started"

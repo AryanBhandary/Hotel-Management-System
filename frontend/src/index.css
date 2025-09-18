@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary colors */
+  --color-primary: #000000;
+  --color-primary-hover: #1A1A1A;
+
+  /* Secondary colors */
+  --color-secondary: #4A4A4A;
+  --color-secondary-light: #e3e3e3;
+
+  /* Accent colors */
+  --color-accent: #FFFFFF;
+
+  /* Backgrounds */
+  --color-bg-light: #F5F5F5;
+  --color-bg-dark: #2C2C2C;
+
+  /* Borders / dividers */
+  --color-border: #D1D1D1;
+
+  /* Text */
+  --color-text-dark-bg: #000000;
+  --color-text-light-bg: #FFFFFF;
+}
+
+
+@layer components {
+  .book-btn {
+    @apply bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg hover:bg-[var(--color-secondary)] transition cursor-pointer;
+  }
+
+  .view-btn{
+    @apply bg-white text-[var(--color-secondary)] px-5 py-2 rounded-lg border border-[var(--color-secondary-light)] hover:bg-[var(--color-secondary-light)] transition cursor-pointer;
+  }
+}
