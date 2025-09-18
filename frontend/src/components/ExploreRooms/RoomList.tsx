@@ -1,8 +1,8 @@
 import { useState, useMemo, useRef, useEffect } from "react";
-import rooms from "../data/roomsData";
+import rooms from "../../data/roomsData";
 import RoomCard from "./RoomCard";
 import RoomFilter from "./RoomFilter";
-import type { Room } from "../data/types";
+import type { Room } from "../../data/types";
 
 const roomOptions = ["All", "Single", "Double", "Family Suite", "Suite"];
 
