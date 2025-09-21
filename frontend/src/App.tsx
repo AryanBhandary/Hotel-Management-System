@@ -2,15 +2,7 @@ import './App.css'
 import './index.css'
 
 import { Route, Routes, useLocation } from 'react-router-dom'
-import GetStarted from './components/GetStarted/GetStarted'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
-import AllRooms from './components/ExploreRooms/AllRooms'
-import NavBar from './components/NavBar/NavBar'
-import Footer from './components/Footer/Footer'
-import ContactUs from './components/ContactUs/ContactUs'
-import AboutUs from './components/AboutUs/AboutUs'
-import RoomDetails from './components/ExploreRooms/RoomDetails'
+import { NavBar, Footer, AllRooms, ContactUs, AboutUs, GetStarted, Login, SignUp, RoomDetails } from './components'
 import ScrollToTop from './hooks/ScrollToTop'
 
 function App() {

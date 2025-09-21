@@ -36,7 +36,7 @@ const rooms: Room[] = [
   {
     id: 2,
     availability: true,
-    guests: 1,
+    guests: 10,
     amenities: ["WiFi", "Air Conditioner", "Mini Fridge"],
     type: "Single",
     bedPreference: "Single Bed",
