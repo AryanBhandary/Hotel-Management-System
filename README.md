@@ -28,7 +28,7 @@ It allows users to search, filter, and view available rooms with infinite scroll
 ### 1. Clone the repo
 ```bash
 git clone https://github.com/aryanbhandary/hotel-management-system.git
-cd hotel-booking
+cd hotel-management-system
 npm install
 npm run dev
 ```
