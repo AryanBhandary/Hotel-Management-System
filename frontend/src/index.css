@@ -26,11 +26,15 @@
 
 
 @layer components {
+  .container {
+    @apply max-w-7xl mx-auto bg-[var(--color-accent)]
+  }
+
   .book-btn {
     @apply bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg hover:bg-[var(--color-secondary)] transition cursor-pointer;
   }
 
-  .view-btn{
+  .view-btn {
     @apply bg-white text-[var(--color-secondary)] px-5 py-2 rounded-lg border border-[var(--color-secondary-light)] hover:bg-[var(--color-secondary-light)] transition cursor-pointer;
   }
 }
