@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👁️ icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { loginUser } from "../../services/authUser";
+import { useNavigate } from "react-router-dom";
+
 
 const Login: React.FC = () => {
+  const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -14,7 +18,9 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login Data:", formData);
+    const user = loginUser(formData.email, formData.password); // 👈 save to localStorage
+    console.log("User saved in localStorage:", user);
+    alert("Logged in successfully!");
   };
 
   return (
@@ -49,11 +55,11 @@ const Login: React.FC = () => {
             style={{
               border: "1px solid var(--color-border)",
               backgroundColor: "var(--color-secondary-light)",
-              color: "var(--color-text-light-bg)",
+              color: "var(--color-text-dark-bg)",
             }}
           />
 
-          {/* Password with Eye Toggle */}
+          {/* Password */}
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -66,7 +72,7 @@ const Login: React.FC = () => {
               style={{
                 border: "1px solid var(--color-border)",
                 backgroundColor: "var(--color-secondary-light)",
-                color: "var(--color-text-light-bg)",
+                color: "var(--color-text-dark-bg)",
               }}
             />
             <button
@@ -88,12 +94,13 @@ const Login: React.FC = () => {
               color: "var(--color-accent)",
             }}
             onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor =
-              "var(--color-primary-hover)")
+              (e.currentTarget.style.backgroundColor =
+                "var(--color-primary-hover)")
             }
             onMouseOut={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--color-primary)")
             }
+            onClick={() => Navigate("/allRooms")}
           >
             Log In
           </button>

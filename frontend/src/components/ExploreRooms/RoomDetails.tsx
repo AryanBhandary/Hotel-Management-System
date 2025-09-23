@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import rooms from "../../constants/roomsData";
-import { FaBed, FaBuilding, FaClipboardList, FaConciergeBell, FaGem, FaHotel, FaStar, FaUsers } from "react-icons/fa";
+import { FaBed, FaBreadSlice, FaBuilding, FaClipboardList, FaConciergeBell, FaDog, FaEgg, FaGem, FaGlideG, FaHotel, FaInfo, FaStar, FaSwimmingPool, FaUsers } from "react-icons/fa";
+import { FaMountainCity } from "react-icons/fa6";
 
 export default function RoomDetails() {
   const { id } = useParams();
@@ -43,7 +44,8 @@ export default function RoomDetails() {
                 />
               </div>
               {/* Thumbnails */}
-              <div className="flex gap-3 mt-4">
+              <h1 className="text-[17px] font-[700] mt-3">Gallery</h1>
+              <div className="flex gap-3 mt-2">
                 {room.gallery.map((img, i) => (
                   <img
                     key={i}
@@ -151,6 +153,131 @@ export default function RoomDetails() {
               </div>
 
               <div className="mb-4">
+                <div className="flex items-center gap-2">
+                  <div><FaInfo /></div>
+                  <div className="text-[17px] font-[700]">What You need to Know</div>
+                </div>
+                <div className="text-[var(--color-secondary)] text-s flex justify-between">
+                  <div>Check In Time:</div>
+                  <div>{room.checkIn}</div>
+                </div>
+                <div className="text-[var(--color-secondary)] text-s flex justify-between">
+                  <div>Check Out Time:</div>
+                  <div>{room.checkOut}</div>
+                </div>
+                <div className="text-[var(--color-secondary)] text-s">
+                  <div>Cancellation Policy:</div>
+                  <div className="pl-40 text-justify mt-[-24px]">{room.cancellationPolicy}</div>
+                </div>
+              </div>
+
+              <div>
+                <button className="bg-[var(--color-primary)] w-full text-white p-2 rounded-lg hover:bg-[var(--color-primary-hover)] transition cursor-pointer"
+                  onClick={() => navigate("/login")}
+                >
+                  Book Now
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Room Information Section */}
+          <div className="flex justify-center max-w-6xl mx-auto gap-2 text-left">
+
+
+            <div className="w-[45%] border border-[var(--color-secondary-light)] rounded-2xl p-4">
+              <div className="mb-4">
+                <div className="flex items-center gap-2">
+                  <div><FaClipboardList /></div>
+                  <div className="text-[17px] font-[700]">Room Description</div>
+                </div>
+                <div className="text-[var(--color-secondary)] text-s text-justify">{room.description}</div>
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <div><FaConciergeBell /></div>
+                  <div className="text-[17px] font-[700]">Room Service</div>
+                </div>
+                <div className="text-[var(--color-secondary)] text-s">{room.roomService}</div>
+              </div>
+            </div>
+
+
+            <div className="w-[60%] flex justify-between border border-[var(--color-secondary-light)] rounded-2xl p-4 g-4">
+
+              <div className="flex flex-col gap-2">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <div><FaMountainCity /></div>
+                    <div className="text-[17px] font-[700]">View</div>
+                  </div>
+                  <div className="text-[var(--color-secondary)] text-s">
+                    <span>{room.view}</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-2">
+                    <div><FaDog /></div>
+                    <div className="text-[17px] font-[700]">Pets</div>
+                  </div>
+                  <div className="text-[var(--color-secondary)] text-s">
+                    {room.petsAllowed ? ("Allowed") : ("Not Allowed")}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-2">
+                    <div><FaBreadSlice /></div>
+                    <div className="text-[17px] font-[700]">Breakfast</div>
+                  </div>
+                  <div className="text-[var(--color-secondary)] text-s">
+                    {room.breakfastIncluded ? ("Included") : ("Not Included")}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2">
+                  <div><FaHotel /></div>
+                  <div className="text-[17px] font-[700]">Amenities</div>
+                </div>
+                {room.amenities.map((amenity, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[var(--color-secondary)] text-s"
+                  >
+                    <ul className="list-disc ml-6">
+                      <li>{amenity}</li>
+                    </ul>
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <div><FaGem /></div>
+                    <div className="text-[17px] font-[700]">Features</div>
+                  </div>
+                  {room.specialFeatures.map((Feature, id) => (
+                    <span
+                      key={id}
+                      className="text-[var(--color-secondary)] text-s "
+                    >
+                      <ul className="list-disc ml-6">
+                      <li>{Feature}</li>
+                    </ul>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-[53%] flex flex-col border border-[var(--color-secondary-light)] rounded-2xl p-4 gap-4">
+              <div className="w-full">
                 <h1 className="text-[17px] font-[700]">Room Details</h1>
                 <div className="text-[var(--color-secondary)] text-s flex justify-between">
                   <div>Parking Facility:</div>
@@ -161,70 +288,24 @@ export default function RoomDetails() {
                   <div>{room.size}</div>
                 </div>
                 <div className="text-[var(--color-secondary)] text-s flex justify-between">
-                  <div>Smoking Policy</div>
+                  <div>Smoking Policy:</div>
                   <div>{room.smokingPolicy}</div>
                 </div>
               </div>
 
-              <div>
-                <button className="bg-[var(--color-primary)] w-full text-white p-2 rounded-lg hover:bg-[var(--color-primary-hover)] transition cursor-pointer"
-                  onClick={() => navigate("/login")}
-                >
-                  Book Now 
-                  </button>
-              </div>
-
-            </div>
-          </div>
-
-          {/* Amenities Section */}
-          <div className="flex justify-center max-w-6xl mx-auto gap-2 text-left">
-            <div className="w-[53%] border border-[var(--color-secondary-light)] rounded-2xl p-4">
-
-              <div className="mb-4">
+              <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <div><FaClipboardList /></div>
-                  <div className="text-[17px] font-[700]">Room Description</div>
+                  <div><FaSwimmingPool /></div>
+                  <div className="text-[17px] font-[700]">Pool Access</div>
                 </div>
-                <div className="text-[var(--color-secondary)] text-s">{room.description}</div>
+
+                <div>
+                <div className="text-[var(--color-secondary)] text-s">
+                    {room.accessible ? ("Allowed") : ("Not Allowed")}
+                  </div>
+                </div>
               </div>
 
-
-              <div>
-                <div className="flex items-center gap-2">
-                  <div><FaConciergeBell /></div>
-                  <div className="text-[17px] font-[700]">Room Service</div>
-                </div>
-                <div className="text-[var(--color-secondary)] text-s">{room.roomService}</div>
-              </div>
-            </div>
-            <div className="w-[53%] border border-[var(--color-secondary-light)] rounded-2xl p-4">
-              <div className="flex items-center gap-2">
-                <div><FaGem /></div>
-                <div className="text-[17px] font-[700]">Special Features</div>
-              </div>
-              {room.specialFeatures.map((Feature, id) => (
-                <span
-                  key={id}
-                  className="text-[var(--color-secondary)] text-s"
-                >
-                  {Feature} <br />
-                </span>
-              ))}
-            </div>
-            <div className="w-[53%] border border-[var(--color-secondary-light)] rounded-2xl p-4">
-              <div className="flex items-center gap-2">
-                <div><FaHotel /></div>
-                <div className="text-[17px] font-[700]">Amenities</div>
-              </div>
-              {room.amenities.map((amenity, idx) => (
-                <span
-                  key={idx}
-                  className="text-[var(--color-secondary)] text-s"
-                >
-                  {amenity} <br />
-                </span>
-              ))}
             </div>
 
           </div>

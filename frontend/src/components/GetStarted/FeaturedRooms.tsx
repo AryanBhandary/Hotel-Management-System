@@ -24,7 +24,9 @@ function FeaturedRooms() {
                 className="w-full h-full object-cover transition duration-500 ease-in-out hover:scale-110"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <button className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-semibold hover:bg-[var(--color-primary-hover)] cursor-pointer">
+                <button className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-semibold hover:bg-[var(--color-primary-hover)] cursor-pointer"
+                  onClick={() => navigate(`/rooms/${room.id}`)}
+                >
                   View Details
                 </button>
               </div>

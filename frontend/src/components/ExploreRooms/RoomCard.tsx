@@ -61,7 +61,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
             View Details
           </button>
           <button className="book-btn"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate(`/booking/${room.id}`)}
           >
             Book Now
           </button>

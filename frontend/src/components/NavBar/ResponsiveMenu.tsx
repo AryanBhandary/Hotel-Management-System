@@ -21,7 +21,7 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
             key={link.path}
             onClick={() => {
               navigate(link.path);
-              setShowMenu(false); // hide menu after click ✅
+              setShowMenu(false);
             }}
             className="transition hover:text-[var(--color-primary)]"
           >
