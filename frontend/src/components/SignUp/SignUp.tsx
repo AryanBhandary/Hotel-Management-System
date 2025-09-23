@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👁️ icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { registerUser } from "../../services/authUser";
+import { useNavigate } from "react-router-dom";
 
 const Signup: React.FC = () => {
+  const Navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +22,19 @@ const Signup: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signup Data:", formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const user = registerUser(formData.name, formData.email, formData.password);
+      console.log("Registered User:", user);
+      alert("Account created successfully!");
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -53,7 +69,7 @@ const Signup: React.FC = () => {
             style={{
               border: "1px solid var(--color-border)",
               backgroundColor: "var(--color-secondary-light)",
-              color: "var(--color-text-light-bg)",
+              color: "var(--color-text-dark-bg)",
             }}
           />
 
@@ -69,7 +85,7 @@ const Signup: React.FC = () => {
             style={{
               border: "1px solid var(--color-border)",
               backgroundColor: "var(--color-secondary-light)",
-              color: "var(--color-text-light-bg)",
+              color: "var(--color-text-dark-bg)",
             }}
           />
 
@@ -86,7 +102,7 @@ const Signup: React.FC = () => {
               style={{
                 border: "1px solid var(--color-border)",
                 backgroundColor: "var(--color-secondary-light)",
-                color: "var(--color-text-light-bg)",
+                color: "var(--color-text-dark-bg)",
               }}
             />
             <button
@@ -112,7 +128,7 @@ const Signup: React.FC = () => {
               style={{
                 border: "1px solid var(--color-border)",
                 backgroundColor: "var(--color-secondary-light)",
-                color: "var(--color-text-light-bg)",
+                color: "var(--color-text-dark-bg)",
               }}
             />
             <button
@@ -140,6 +156,7 @@ const Signup: React.FC = () => {
             onMouseOut={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--color-primary)")
             }
+            onClick={() => Navigate("/allRooms")}
           >
             Sign Up
           </button>

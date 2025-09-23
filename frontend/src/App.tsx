@@ -2,7 +2,7 @@ import './App.css'
 import './index.css'
 
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { NavBar, Footer, AllRooms, ContactUs, AboutUs, GetStarted, Login, SignUp, RoomDetails } from './components'
+import { NavBar, Footer, AllRooms, ContactUs, AboutUs, GetStarted, Login, SignUp, RoomDetails, Book } from './components'
 import ScrollToTop from './hooks/ScrollToTop'
 
 function App() {
@@ -24,9 +24,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/rooms/:id" element={<RoomDetails />} />
+        <Route path="/booking/:id" element={<Book />} />
       </Routes>
       {showNavFooter && <Footer />}
-      
+       
     </>
   )
 }
