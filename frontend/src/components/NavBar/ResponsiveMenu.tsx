@@ -11,9 +11,9 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 h-screen w-[70%] bg-white shadow-md transform transition-transform duration-300 md:hidden ${
-        showMenu ? "translate-x-0" : "-translate-x-full"
-      }`}
+      className={`fixed top-16 left-0 w-full z-50 bg-[var(--color-secondary-light)]/80 backdrop-blur-md overflow-hidden transform transition-transform duration-300 md:hidden
+    ${showMenu ? "scale-y-100" : "scale-y-0"}`}
+      style={{ transformOrigin: "top", zIndex: 100 }}
     >
       <div className="flex flex-col p-6 space-y-6 text-[var(--color-secondary)] font-medium">
         {NavLinks.map((link) => (
@@ -23,13 +23,14 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
               navigate(link.path);
               setShowMenu(false);
             }}
-            className="transition hover:text-[var(--color-primary)]"
+            className="transition hover:text-[var(--color-primary)] text-left"
           >
             {link.name}
           </button>
         ))}
       </div>
     </div>
+
   );
 };
 
