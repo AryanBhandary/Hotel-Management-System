@@ -16,54 +16,56 @@ function GetStarted() {
 
   return (
     <>
-      <div className="container">
-        <div className="relative w-full h-[600px]">
-          <img
-            src="https://i.pinimg.com/736x/b1/5f/25/b15f257289f1d06d0e4dd4fc332de429.jpg"
-            alt="get-started"
-            className="w-full h-full object-cover brightness-50"
-          />
+      {/* Full-width Hero Section */}
+      <section className="relative w-full h-[600px] sm:h-[550px] md:h-[650px] lg:h-[700px]">
+        {/* Background Image */}
+        <img
+          src="https://i.pinimg.com/736x/b1/5f/25/b15f257289f1d06d0e4dd4fc332de429.jpg"
+          alt="get-started"
+          className="w-full h-full object-cover brightness-50"
+        />
 
-          <div className="absolute top-[60%] ml-5 z-40">
-            <h1 className="text-[var(--color-accent)]/80 text-5xl font-bold">
+        {/* Text and Form Container (constrained) */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center text-center gap-6">
+              <h1 className="text-[var(--color-accent)]/80 text-3xl sm:text-4xl md:text-5xl font-bold">
               Your Comfort Our Priority
-            </h1>
-            <div className="text-[var(--color-accent)]/80 font-semibold text-xl w-[60%]">
-              Experience comfort, luxury, and exceptional hospitality at our
-              premium hotel. We create memorable stays for every guest with
-              world-class amenities and service.
+              </h1>
+              <p className="text-[var(--color-accent)]/80 font-semibold text-sm sm:text-base md:text-xl mt-2 max-w-2xl">
+              Experience comfort, luxury, and exceptional hospitality at our premium hotel.
+              We create memorable stays for every guest with world-class amenities and service.
+              </p>
+              <div className="w-full sm:w-[90%] md:w-[400px] lg:w-[500px]">
+                <StaticForm
+                  selectedRoom={selectedRoom}
+                  setSelectedRoom={setSelectedRoom}
+                  guests={guests}
+                  setGuests={setGuests}
+                  onSearch={handleSearch}
+                />
+              </div>
             </div>
           </div>
+      </section>
 
-          {/* Booking Form */}
-          <StaticForm
-            selectedRoom={selectedRoom}
-            setSelectedRoom={setSelectedRoom}
-            guests={guests}
-            setGuests={setGuests}
-            onSearch={handleSearch}
-          />
-        </div>
-
-        {/* Featured Rooms */}
-        <div className="text-center mt-20 mb-6 px-4">
-          <h1 className="text-2xl font-bold mb-2">Featured Rooms & Suites</h1>
-          <p className="text-[var(--color-secondary)] text-base">
-            Discover the perfect accommodation for your stay, from comfortable standard rooms to luxurious penthouse suites.
-          </p>
-        </div>
-
-        <FeaturedRooms />
-
-        {/* Explore More Button */}
-        <div className="w-full text-center my-8">
-          <button className="view-btn" onClick={() => navigate("/allRooms")}>
-            Explore More
-          </button>
-        </div>
-
-        <HotelServices />
+      {/* Featured Rooms */}
+      <div className="container mx-auto px-4 text-center mt-10 md:mt-10 mb-6">
+        <h1 className="text-2xl font-bold mb-2">Featured Rooms & Suites</h1>
+        <p className="text-[var(--color-secondary)] text-base">
+          Discover the perfect accommodation for your stay, from comfortable standard rooms to luxurious penthouse suites.
+        </p>
       </div>
+
+      <FeaturedRooms />
+
+      {/* Explore More Button */}
+      <div className="container mx-auto px-4 w-full text-center my-8">
+        <button className="view-btn" onClick={() => navigate("/allRooms")}>
+          Explore More
+        </button>
+      </div>
+
+      <HotelServices />
     </>
   );
 }

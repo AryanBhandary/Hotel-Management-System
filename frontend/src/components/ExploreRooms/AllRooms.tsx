@@ -18,46 +18,58 @@ function AllRooms() {
   }, [location.state]);
 
   const handleSearch = () => {
-    // Navigate while passing the new search params
     navigate("/allRooms", { state: { roomType: selectedRoom, guests } });
   };
 
   return (
     <>
-      <div className="container">
-        <div className="relative w-full h-[600px]">
+      {/* Full-width Hero Section (same style as GetStarted) */}
+      <div className="mx-auto">
+        <section className="relative w-full h-[600px] sm:h-[550px] md:h-[650px] lg:h-[700px] bg-[var(--color-accent)] ">
+          {/* Background Image */}
           <img
-            src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80"
-            alt="get-started"
+            src="https://i.pinimg.com/736x/b1/5f/25/b15f257289f1d06d0e4dd4fc332de429.jpg"
+            alt="all-rooms-hero"
             className="w-full h-full object-cover brightness-50"
           />
 
-          <div className="absolute top-[60%] ml-5 z-50">
-            <h1 className="text-[var(--color-accent)]/80 text-5xl font-bold">
-              Your Comfort Our Priority
-            </h1>
-            <div className="text-[var(--color-accent)]/80 font-semibold text-xl w-[60%]">
-              Experience comfort, luxury, and exceptional hospitality at our premium hotel. We create memorable stays for every guest with world-class amenities and service.
+          {/* Text and Form Container (constrained) */}
+
+
+          <div className="absolute inset-0 flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center text-center gap-6">
+              <h1 className="text-[var(--color-accent)]/80 text-3xl sm:text-4xl md:text-5xl font-bold">
+                Explore All Rooms
+              </h1>
+              <p className="text-[var(--color-accent)]/80 font-semibold text-sm sm:text-base md:text-xl mt-2 max-w-2xl">
+                Find the perfect room tailored to your needs and preferences.
+                Choose from our wide range of luxurious and comfortable options.
+              </p>
+              <div className="w-full sm:w-[90%] md:w-[400px] lg:w-[500px]">
+                <StaticForm
+                  selectedRoom={selectedRoom}
+                  setSelectedRoom={setSelectedRoom}
+                  guests={guests}
+                  setGuests={setGuests}
+                  onSearch={handleSearch}
+                />
+              </div>
             </div>
           </div>
+        </section>
 
-          <StaticForm
-            selectedRoom={selectedRoom}
-            setSelectedRoom={setSelectedRoom}
-            guests={guests}
-            setGuests={setGuests}
-            onSearch={handleSearch}
-          />
+        {/* Featured Rooms */}
+        <div className="text-center mt-10 mb-6 mx-auto">
+          <h1 className="text-2xl font-bold mb-2">Featured Rooms & Suites</h1>
+          <p className="text-[var(--color-secondary)] text-base">
+            Discover the perfect accommodation for your stay, from comfortable standard rooms to luxurious penthouse suites.
+          </p>
         </div>
 
-        <div>
-          <div className="text-center mt-20 mb-6 px-4">
-            <h1 className="text-2xl font-bold mb-2">Featured Rooms & Suites</h1>
-            <p className="text-[var(--color-secondary)] text-base">
-              Discover the perfect accommodation for your stay, from comfortable standard rooms to luxurious penthouse suites.
-            </p>
+        <div className="w-full flex justify-center">
+          <div className="w-full max-w-7xl px-4">
+            <RoomsList searchParams={{ roomType: selectedRoom, guests }} />
           </div>
-          <RoomsList searchParams={{ roomType: selectedRoom, guests }} />
         </div>
       </div>
     </>

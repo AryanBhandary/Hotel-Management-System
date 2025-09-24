@@ -4,7 +4,7 @@ export {default as AllRooms} from './ExploreRooms/AllRooms';
 export {default as ContactUs} from './ContactUs/ContactUs';
 export {default as AboutUs} from './AboutUs/AboutUs';
 export {default as GetStarted} from './GetStarted/GetStarted';
-export {default as RoomDetails} from './ExploreRooms/RoomDetails';
+export {default as RoomDetails} from './RoomDetails/RoomDetails';
 export {default as Login} from './Login/Login';
 export {default as SignUp} from './SignUp/SignUp';
 export {default as Book} from './BookingForm/Booking'

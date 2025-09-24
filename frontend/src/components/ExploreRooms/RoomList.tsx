@@ -1,9 +1,9 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import rooms from "../../constants/roomsData";
 import RoomCard from "./RoomCard";
-import RoomFilter from "./RoomFilter";
+import RoomFilter from "../RoomsFilter/RoomFilter";
+import ResponsiveRoomFilter from "../RoomsFilter/ResponsiveRoomFilter";
 import type { Room } from "../../constants/types";
-
 
 type RoomsListProps = {
   searchParams: {
@@ -21,10 +21,13 @@ const RoomsList: React.FC<RoomsListProps> = ({ searchParams }) => {
   const [bedPreferences, setBedPreferences] = useState<string[]>([]);
   const [visibleCount, setVisibleCount] = useState(roomsPerPage);
   const [isLoading, setIsLoading] = useState(false);
-  const loaderRef = useRef<HTMLDivElement | null>(null);
+  const [showFilter, setShowFilter] = useState(false);
 
+  const loaderRef = useRef<HTMLDivElement | null>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
   const { roomType, guests } = searchParams;
 
+  // Filter rooms based on all criteria
   const filteredRooms = useMemo(() => {
     return rooms.filter((room: Room) => {
       let match = true;
@@ -41,6 +44,7 @@ const RoomsList: React.FC<RoomsListProps> = ({ searchParams }) => {
 
   const currentRooms = filteredRooms.slice(0, visibleCount);
 
+  // Infinite scroll observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -64,10 +68,28 @@ const RoomsList: React.FC<RoomsListProps> = ({ searchParams }) => {
     };
   }, [filteredRooms.length, isLoading]);
 
+  // Close mobile filter when clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setShowFilter(false);
+      }
+    };
+
+    if (showFilter) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showFilter]);
+
   return (
-    <div className="flex gap-6 p-6 justify-center">
-      <div className="w-[15%]">
-        <div className="sticky top-[120px]">
+    <div className="container flex gap-6 p-6 justify-center max-w-6xl mx-auto">
+      {/* Desktop Filter Sidebar */}
+      <div className="hidden md:block lg:min-w-[23%]">
+        <div className="sticky top-[75px]">
           <RoomFilter
             budget={budget}
             setBudget={setBudget}
@@ -81,13 +103,26 @@ const RoomsList: React.FC<RoomsListProps> = ({ searchParams }) => {
         </div>
       </div>
 
-      <div className="w-[60%]">
+      {/* Rooms Column */}
+      <div className="flex-1 mx-auto ml-7">
+        {/* Mobile Sticky Filter Button */}
+        <div className="md:hidden sticky top-[64px] z-20 mb-4 bg-white p-2 shadow ">
+          <button
+            onClick={() => setShowFilter(true)}
+            className="w-full book-btn"
+          >
+            Show Filters
+          </button>
+        </div>
+
+        {/* Rooms List */}
         {currentRooms.length > 0 ? (
           currentRooms.map((room: Room) => <RoomCard key={room.id} room={room} />)
         ) : (
-          <p className="text-[var(--color-secondary)] text-center">No rooms match your filters.</p>
+          <p className="text-center text-[var(--color-secondary)]">No rooms match your filters.</p>
         )}
 
+        {/* Infinite Scroll Loader */}
         {visibleCount < filteredRooms.length && (
           <div ref={loaderRef} className="h-10 flex justify-center items-center text-[var(--color-secondary)]">
             {isLoading && (
@@ -95,6 +130,22 @@ const RoomsList: React.FC<RoomsListProps> = ({ searchParams }) => {
             )}
           </div>
         )}
+      </div>
+
+      {/* Mobile Filter Drawer */}
+      <div ref={filterRef}>
+        <ResponsiveRoomFilter
+          showFilter={showFilter}
+          setShowFilter={setShowFilter}
+          budget={budget}
+          setBudget={setBudget}
+          selectedAmenities={selectedAmenities}
+          setSelectedAmenities={setSelectedAmenities}
+          selectedRoomTypes={selectedRoomTypes}
+          setSelectedRoomTypes={setSelectedRoomTypes}
+          bedPreferences={bedPreferences}
+          setBedPreferences={setBedPreferences}
+        />
       </div>
     </div>
   );
