@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { registerUser } from "../../services/authUser";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -108,9 +108,9 @@ const SignUp: React.FC = () => {
 
         <p className="text-center text-sm mt-4 text-[var(--color-secondary)]">
           Already have an account?{" "}
-          <a href="/login" className="text-[var(--color-primary)] font-medium hover:underline">
+          <Link to="/login" className="text-[var(--color-primary)] font-medium hover:underline">
             Log in
-          </a>
+          </Link>
         </p>
       </div>
     </div>
