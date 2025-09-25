@@ -11,7 +11,7 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
 
   return (
     <div
-      className={`fixed top-16 left-0 w-full z-50 bg-[var(--color-secondary-light)]/80 backdrop-blur-md overflow-hidden transform transition-transform duration-300 md:hidden
+      className={`fixed top-16 left-0 w-full z-50 bg-[var(--color-secondary-light)] backdrop-blur-md overflow-hidden transform transition-transform duration-300 md:hidden
     ${showMenu ? "scale-y-100" : "scale-y-0"}`}
       style={{ transformOrigin: "top", zIndex: 100 }}
     >
