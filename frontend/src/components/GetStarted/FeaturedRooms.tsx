@@ -17,7 +17,7 @@ function FeaturedRooms() {
       navigate(`/booking/${roomId}`);
     } else {
       // ❌ User not logged in → go to login
-      navigate("/login");
+      navigate("/signup");
     }
   };
 

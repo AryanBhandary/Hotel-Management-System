@@ -135,7 +135,7 @@ export default function RoomInfoSidebar({ room }: Props) {
                         if (token) {
                             navigate(`/booking/${room.id}`);
                         } else {
-                            navigate("/login");
+                            navigate("/signup");
                         }
                     }}
                 >
