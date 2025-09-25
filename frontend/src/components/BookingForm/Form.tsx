@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import type { Room } from "../../constants/types";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   room: Room;
@@ -8,7 +7,6 @@ interface Props {
 }
 
 export default function Form({ room, onSubmit }: Props) {
-  const navigate = useNavigate();
   const [guestDropdownOpen, setGuestDropdownOpen] = useState(false);
   const [selectedGuests, setSelectedGuests] = useState(1);
 
