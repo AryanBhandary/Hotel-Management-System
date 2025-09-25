@@ -1,5 +1,6 @@
 import React from "react";
 import RoomFilter from "./RoomFilter";
+import { IoClose } from "react-icons/io5";
 
 interface ResponsiveRoomFilterProps {
   showFilter: boolean;
@@ -31,12 +32,12 @@ const ResponsiveRoomFilter: React.FC<ResponsiveRoomFilterProps> = ({
       className={`fixed top-0 left-0 w-[70%] h-full bg-black/40 z-50 transform transition-transform duration-300 md:hidden
         ${showFilter ? "translate-x-0" : "-translate-x-full"}`}
     >
-      <div className="absolute left-0 top-0 w-full h-full bg-white p-6 shadow-lg overflow-auto">
+      <div className="absolute left-0 top-0 w-full h-full bg-black/40 p-6 shadow-lg overflow-auto">
         <button
           className="mb-4 text-[var(--color-secondary)] font-bold"
           onClick={() => setShowFilter(false)}
         >
-          Close X
+          <IoClose size={28} className="text-black bg-white/70 rounded-2xl"/>
         </button>
         <RoomFilter
           budget={budget}

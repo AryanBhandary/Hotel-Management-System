@@ -1,30 +1,35 @@
-import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import rooms from "../../constants/roomsData";
+import { useState, useEffect, useRef } from "react";
+import type { Room } from "../../constants/types";
+import { useNavigate } from "react-router-dom";
 
-export default function Form() {
-  const { id } = useParams();
-  const room = rooms.find((r) => r.id === Number(id));
+interface Props {
+  room: Room;
+  onSubmit: (bookingDetails: any) => void;
+}
 
+export default function Form({ room, onSubmit }: Props) {
+  const navigate = useNavigate();
   const [guestDropdownOpen, setGuestDropdownOpen] = useState(false);
   const [selectedGuests, setSelectedGuests] = useState(1);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    fullName: "",
+    streetAddress: "",
+    streetAddress2: "",
+    state: "",
+    postalCode: "",
     phone: "",
-    guests: 1,
-    checkIn: "",
-    checkOut: "",
+    email: "",
+    arrivalDate: "",
+    departureDate: "",
+    paymentMethod: "",
     specialRequest: "",
   });
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -34,14 +39,31 @@ export default function Form() {
     e.preventDefault();
     const bookingDetails = {
       ...formData,
+      arrivalDateTime: `${formData.arrivalDate} ${room.checkIn}`,
+      departureDateTime: `${formData.departureDate} ${room.checkOut}`,
+      room: room.type,
       guests: selectedGuests,
-      room: room?.type,
     };
-    console.log("Booking Details:", bookingDetails);
-    alert(`Booking for ${room?.type} submitted successfully!`);
+    onSubmit(bookingDetails);
   };
 
-  // Close dropdown when clicking outside
+  const handleClear = () => {
+    setFormData({
+      fullName: "",
+      streetAddress: "",
+      streetAddress2: "",
+      state: "",
+      postalCode: "",
+      phone: "",
+      email: "",
+      arrivalDate: "",
+      departureDate: "",
+      paymentMethod: "",
+      specialRequest: "",
+    });
+    setSelectedGuests(1);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -55,164 +77,223 @@ export default function Form() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (!room) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-gray-600 mt-[10%]">
-        Room not found 😕
-      </div>
-    );
-  }
-
   return (
-    <div className="container p-8 rounded-xl shadow-md mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-center text-[var(--color-primary)]">
-        Book {room.type}
-      </h2>
+    <form onSubmit={handleSubmit} className="form-container">
+      {/* Full Name */}
+      <div>
+        <label className="form-label">Full Name</label>
+        <input
+          type="text"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          required
+          className="form-input"
+        />
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Full Name */}
+      {/* Address */}
+      <div>
+        <label className="form-label">Street Address</label>
+        <input
+          type="text"
+          name="streetAddress"
+          value={formData.streetAddress}
+          onChange={handleChange}
+          required
+          className="form-input"
+        />
+      </div>
+
+      <div>
+        <label className="form-label">Street Address Line 2</label>
+        <input
+          type="text"
+          name="streetAddress2"
+          value={formData.streetAddress2}
+          onChange={handleChange}
+          className="form-input"
+        />
+      </div>
+
+      <div className="form-grid-2">
         <div>
-          <label className="block font-medium text-[var(--color-secondary)]">
-            Full Name
-          </label>
+          <label className="form-label">State / Province</label>
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="state"
+            value={formData.state}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            placeholder="Enter your full name"
+            className="form-input"
           />
         </div>
-
-        {/* Email */}
         <div>
-          <label className="block font-medium text-[var(--color-secondary)]">
-            Email Address
-          </label>
+          <label className="form-label">Postal / ZIP Code</label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="postalCode"
+            value={formData.postalCode}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            placeholder="Enter your email"
+            className="form-input"
           />
         </div>
+      </div>
 
-        {/* Phone */}
+      {/* Phone + Email */}
+      <div>
+        <label className="form-label">Phone Number</label>
+        <input
+          type="tel"
+          name="phone"
+          placeholder="+977 **********"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          className="form-input"
+        />
+      </div>
+
+      <div>
+        <label className="form-label">Email Address</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="example@gmail.com"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="form-input"
+        />
+      </div>
+
+      {/* Arrival / Departure */}
+      <div className="form-grid-2">
         <div>
-          <label className="block font-medium text-[var(--color-secondary)]">
-            Phone Number
-          </label>
+          <label className="form-label">Arrival Date</label>
           <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
+            type="date"
+            name="arrivalDate"
+            value={formData.arrivalDate}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            placeholder="Enter your phone number"
+            className="form-input"
           />
+          <p className="form-helper">Check-in: {room.checkIn}</p>
         </div>
+        <div>
+          <label className="form-label">Departure Date</label>
+          <input
+            type="date"
+            name="departureDate"
+            value={formData.departureDate}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+          <p className="form-helper">Check-out: {room.checkOut}</p>
+        </div>
+      </div>
 
-        {/* Guests */}
-        <div className="relative mb-4 text-[17px]" ref={dropdownRef}>
-          <label className="text-[var(--color-secondary)] mb-1">Guests:</label>
-          <div
-            className="w-full p-2 rounded bg-gray-50/70 border border-[var(--color-secondary-light)] cursor-pointer flex justify-between items-center"
-            onClick={() => setGuestDropdownOpen(!guestDropdownOpen)}
+      {/* Guests Dropdown */}
+      <div ref={dropdownRef} className="relative mb-4 text-[17px]">
+        <label className="form-label">Guests:</label>
+        <div
+          className="dropdown"
+          onClick={() => setGuestDropdownOpen(!guestDropdownOpen)}
+        >
+          <span className={selectedGuests ? "text-black" : "text-gray-400"}>
+            {selectedGuests} {selectedGuests === 1 ? "Guest" : "Guests"}
+          </span>
+          <svg
+            className={`w-4 h-4 transform transition-transform ${
+              guestDropdownOpen ? "rotate-180" : ""
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <span>
-              {selectedGuests} {selectedGuests === 1 ? "Guest" : "Guests"}
-            </span>
-          </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </div>
+        {guestDropdownOpen && (
+          <ul className="dropdown-menu">
+            {[...Array(room.guests).keys()].map((num) => {
+              const guestNum = num + 1;
+              return (
+                <li
+                  key={guestNum}
+                  className={`dropdown-item ${
+                    selectedGuests === guestNum ? "dropdown-item-selected" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedGuests(guestNum);
+                    setGuestDropdownOpen(false);
+                  }}
+                >
+                  {guestNum} {guestNum === 1 ? "Guest" : "Guests"}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
 
-          {guestDropdownOpen && (
-            <ul className="absolute w-full bg-white rounded mt-1 max-h-50 overflow-auto shadow-lg z-50">
-              {[...Array(room.guests).keys()].map((num) => {
-                const guestNum = num + 1;
-                return (
-                  <li
-                    key={guestNum}
-                    className={`p-2 hover:bg-[var(--color-secondary-light)] text-[var(--color-text-dark-bg)] cursor-pointer ${
-                      guestNum === selectedGuests
-                        ? "font-semibold bg-gray-200"
-                        : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedGuests(guestNum);
-                      setGuestDropdownOpen(false);
-                    }}
-                  >
-                    {guestNum} {guestNum === 1 ? "Guest" : "Guests"}
-                  </li>
-                );
-              })}
-            </ul>
+      {/* Payment Method */}
+      <div>
+        <label className="form-label">Payment Method</label>
+        <div className="radio-group">
+          {["Credit Card", "Debit Card", "Cash", "Bank Transfer"].map(
+            (method) => (
+              <label key={method} className="radio-label">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value={method}
+                  checked={formData.paymentMethod === method}
+                  onChange={handleChange}
+                  required
+                />
+                {method}
+              </label>
+            )
           )}
         </div>
+      </div>
 
-        {/* Dates */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block font-medium text-[var(--color-secondary)]">
-              Check-In
-            </label>
-            <input
-              type="date"
-              name="checkIn"
-              value={formData.checkIn}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            />
-          </div>
-          <div>
-            <label className="block font-medium text-[var(--color-secondary)]">
-              Check-Out
-            </label>
-            <input
-              type="date"
-              name="checkOut"
-              value={formData.checkOut}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            />
-          </div>
-        </div>
+      {/* Special Request */}
+      <div>
+        <label className="form-label">Special Request (Optional)</label>
+        <textarea
+          name="specialRequest"
+          value={formData.specialRequest}
+          onChange={handleChange}
+          className="form-input"
+          rows={3}
+        />
+      </div>
 
-        {/* Special Requests */}
-        <div>
-          <label className="block font-medium text-[var(--color-secondary)]">
-            Special Requests
-          </label>
-          <textarea
-            name="specialRequest"
-            value={formData.specialRequest}
-            onChange={handleChange}
-            className="w-full p-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            placeholder="Any additional requests..."
-          />
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-4 justify-center">
-          <button type="submit" className="book-btn">
-            Book Now
-          </button>
+      {/* Buttons */}
+      <div>
+        <div className="flex gap-3">
           <button
             type="button"
-            className="view-btn"
-            onClick={() => alert("Viewing rooms...")}
+            className="clear-btn"
+            onClick={handleClear}
           >
-            View Rooms
+            Clear Fields
+          </button>
+          <button type="submit" className="sub-btn">
+            Confirm Booking
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
