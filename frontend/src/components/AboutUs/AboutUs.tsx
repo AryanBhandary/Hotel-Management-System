@@ -19,7 +19,7 @@ function AboutUs() {
 
               <p className="text-gray-700 text-sm sm:text-base md:text-lg">
                 Experience comfort, luxury, and exceptional hospitality at our premium hotel.
-                We create memorable stays for every guest with world-class amenities and service.
+                We create memorable stays for every guest with world-class amenities and services.
               </p>
 
               <button
