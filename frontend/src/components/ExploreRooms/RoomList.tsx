@@ -106,7 +106,7 @@ const RoomsList: React.FC<RoomsListProps> = ({ searchParams }) => {
       {/* Rooms Column */}
       <div className="flex-1 mx-auto ml-7">
         {/* Mobile Sticky Filter Button */}
-        <div className="flex justify-between items-center md:hidden sticky top-[63px] z-20 mb-4 bg-gradient-to-b from-[var(--color-secondary-light)] to-white p-2 rounded-lg">
+        <div className="flex justify-between items-center md:hidden sticky top-[63px] z-20 mb-4 bg-white p-2 ">
           <div className="text-[var(--color-secondary)] font-bold text-xl cursor-pointer">All Our Rooms</div>
           <button
             onClick={() => setShowFilter(true)}
