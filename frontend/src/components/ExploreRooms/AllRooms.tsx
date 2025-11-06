@@ -38,10 +38,10 @@ function AllRooms() {
 
           <div className="absolute inset-0 flex flex-col justify-center items-center">
             <div className="flex flex-col items-center text-center gap-6">
-              <h1 className="text-[var(--color-accent)]/80 text-3xl sm:text-4xl md:text-5xl font-bold">
+              <h1 className="text-[var(--color-accent)]/80 text-3xl sm:text-4xl md:text-5xl font-bold p-2">
                 Explore All Rooms
               </h1>
-              <p className="text-[var(--color-accent)]/80 font-semibold text-sm sm:text-base md:text-xl mt-2 max-w-2xl">
+              <p className="text-[var(--color-accent)]/80 font-semibold text-sm sm:text-base md:text-xl mt-2 max-w-2xl p-3">
                 Find the perfect room tailored to your needs and preferences.
                 Choose from our wide range of luxurious and comfortable options.
               </p>
