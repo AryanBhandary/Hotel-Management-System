@@ -43,7 +43,7 @@ const ResponsiveRoomFilter: React.FC<Props> = ({
         className={`fixed top-0 left-0 h-full w-[240px] bg-white shadow-xl z-50 transform transition-transform duration-300 ${
           showFilter ? "translate-x-0" : `-translate-x-full`
         }`}
-        style={{ width: "240px" }}
+        style={{ width: "300px" }}
       >
         <div className="p-5 overflow-y-auto h-full">
 

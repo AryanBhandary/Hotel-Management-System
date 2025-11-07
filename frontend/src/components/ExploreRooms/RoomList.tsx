@@ -6,7 +6,7 @@ import ResponsiveRoomFilter from "../RoomsFilter/ResponsiveRoomFilter";
 import { FaArrowRight } from "react-icons/fa";
 import type { Room } from "../../constants/types";
 
-const DRAWER_WIDTH = 240;
+const DRAWER_WIDTH = 300;
 
 const RoomsList = ({ searchParams }: { searchParams: { roomType: string; guests: number } }) => {
   const [budget, setBudget] = useState(25000);
