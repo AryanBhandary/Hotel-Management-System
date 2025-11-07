@@ -41,7 +41,7 @@ function AllRooms() {
               <h1 className="text-[var(--color-accent)]/80 text-3xl sm:text-4xl md:text-5xl font-bold p-2">
                 Explore All Rooms
               </h1>
-              <p className="text-[var(--color-accent)]/80 font-semibold text-sm sm:text-base md:text-xl mt-2 max-w-2xl p-3">
+              <p className="text-[var(--color-accent)]/80 font-semibold text-sm sm:text-base md:text-xl mt-2 max-w-2xl">
                 Find the perfect room tailored to your needs and preferences.
                 Choose from our wide range of luxurious and comfortable options.
               </p>
@@ -60,8 +60,8 @@ function AllRooms() {
 
         {/* Featured Rooms */}
         <div className="text-center mt-10 mb-6 mx-auto">
-          <h1 className="text-2xl font-bold mb-2">Featured Rooms & Suites</h1>
-          <p className="text-[var(--color-secondary)] text-base">
+          <h1 className="text-2xl font-bold">Featured Rooms & Suites</h1>
+          <p className="text-[var(--color-secondary)] text-base p-4">
             Discover the perfect accommodation for your stay, from comfortable standard rooms to luxurious penthouse suites.
           </p>
         </div>
