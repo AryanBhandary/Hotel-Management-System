@@ -59,9 +59,9 @@ function AllRooms() {
         </section>
 
         {/* Featured Rooms */}
-        <div className="text-center mt-10 mb-6 mx-auto">
+        <div className="text-center mt-7 mx-auto">
           <h1 className="text-2xl font-bold">Featured Rooms & Suites</h1>
-          <p className="text-[var(--color-secondary)] text-base p-4">
+          <p className="text-[var(--color-secondary)] text-base p-4 ">
             Discover the perfect accommodation for your stay, from comfortable standard rooms to luxurious penthouse suites.
           </p>
         </div>
