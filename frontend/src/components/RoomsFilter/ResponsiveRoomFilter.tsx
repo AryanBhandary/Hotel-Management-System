@@ -1,8 +1,8 @@
 import React from "react";
 import RoomFilter from "./RoomFilter";
-import { IoClose } from "react-icons/io5";
 
-interface ResponsiveRoomFilterProps {
+
+interface Props {
   showFilter: boolean;
   setShowFilter: (val: boolean) => void;
   budget: number;
@@ -15,7 +15,8 @@ interface ResponsiveRoomFilterProps {
   setBedPreferences: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const ResponsiveRoomFilter: React.FC<ResponsiveRoomFilterProps> = ({
+
+const ResponsiveRoomFilter: React.FC<Props> = ({
   showFilter,
   setShowFilter,
   budget,
@@ -28,29 +29,37 @@ const ResponsiveRoomFilter: React.FC<ResponsiveRoomFilterProps> = ({
   setBedPreferences,
 }) => {
   return (
-    <div
-      className={`fixed top-0 left-0 w-[70%] h-full bg-black/40 z-50 transform transition-transform duration-300 md:hidden
-        ${showFilter ? "translate-x-0" : "-translate-x-full"}`}
-    >
-      <div className="absolute left-0 top-0 w-full h-full bg-black/40 p-6 shadow-lg overflow-auto">
-        <button
-          className="mb-4 text-[var(--color-secondary)] font-bold"
-          onClick={() => setShowFilter(false)}
-        >
-          <IoClose size={28} className="text-black bg-white/70 rounded-2xl"/>
-        </button>
-        <RoomFilter
-          budget={budget}
-          setBudget={setBudget}
-          selectedAmenities={selectedAmenities}
-          setSelectedAmenities={setSelectedAmenities}
-          selectedRoomTypes={selectedRoomTypes}
-          setSelectedRoomTypes={setSelectedRoomTypes}
-          bedPreferences={bedPreferences}
-          setBedPreferences={setBedPreferences}
-        />
+    <>
+      {/* Overlay */}
+      <div
+        onClick={() => setShowFilter(false)}
+        className={`fixed inset-0 z-40 transition-opacity duration-300 ${
+          showFilter ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      />
+
+      {/* Drawer */}
+      <div
+        className={`fixed top-0 left-0 h-full w-[240px] bg-white shadow-xl z-50 transform transition-transform duration-300 ${
+          showFilter ? "translate-x-0" : `-translate-x-full`
+        }`}
+        style={{ width: "240px" }}
+      >
+        <div className="p-5 overflow-y-auto h-full">
+
+          <RoomFilter
+            budget={budget}
+            setBudget={setBudget}
+            selectedAmenities={selectedAmenities}
+            setSelectedAmenities={setSelectedAmenities}
+            selectedRoomTypes={selectedRoomTypes}
+            setSelectedRoomTypes={setSelectedRoomTypes}
+            bedPreferences={bedPreferences}
+            setBedPreferences={setBedPreferences}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
