@@ -109,7 +109,7 @@ const RoomsList = ({ searchParams }: { searchParams: { roomType: string; guests:
         {isCompact && (
           <button
             onClick={() => setShowFilter((prev) => !prev)}
-            className="md:hidden fixed left-0 top-[90px] py-3 px-3 rounded-r-xl text-white font-semibold shadow-md transition-all duration-300"
+            className="md:hidden fixed left-0 top-[90px] p-3 rounded-r-xl text-white font-semibold shadow-md transition-all duration-300"
             style={{
               background: "var(--color-primary)",
               transform: showFilter ? `translateX(${DRAWER_WIDTH}px)` : "translateX(0)",
