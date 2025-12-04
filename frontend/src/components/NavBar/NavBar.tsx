@@ -4,11 +4,51 @@ import { Menu } from "lucide-react";
 import { IoClose } from "react-icons/io5";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { NavLinks } from "../../constants/NavLinks";
+import { AUTH_CHANGE_EVENT, logoutUser } from "../../services/authUser";
+
+type NavUser = {
+  name: string;
+  email: string;
+};
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<NavUser | null>(null);
   const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Load user from localStorage and listen for auth changes
+  useEffect(() => {
+    const loadUser = () => {
+      try {
+        const stored = localStorage.getItem("user");
+        setCurrentUser(stored ? JSON.parse(stored) : null);
+      } catch {
+        setCurrentUser(null);
+      }
+    };
+
+    loadUser();
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "user" || event.key === "token" || event.key === null) {
+        loadUser();
+      }
+    };
+
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener(AUTH_CHANGE_EVENT, loadUser);
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener(AUTH_CHANGE_EVENT, loadUser);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    logoutUser();
+    setCurrentUser(null);
+    navigate("/login");
+  };
 
   // Close menu on outside click
   useEffect(() => {
@@ -41,7 +81,7 @@ function NavBar() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6 font-medium text-[var(--color-secondary)]">
+          <div className="hidden md:flex items-center space-x-6 font-medium text-[var(--color-secondary)]">
             {NavLinks.map((link) => (
               <button
                 key={link.path}
@@ -51,6 +91,33 @@ function NavBar() {
                 {link.name}
               </button>
             ))}
+
+            {/* Auth actions */}
+            {currentUser ? (
+              <div className="flex items-center space-x-3 ml-4">
+                <button
+                  onClick={handleLogout}
+                  className="px-3 py-1 rounded-full bg-[var(--color-primary)] text-white text-sm hover:bg-[var(--color-primary-dark)] transition"
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-3 ml-4">
+                <button
+                  onClick={() => navigate("/login")}
+                  className="px-3 py-1 rounded-full border border-[var(--color-primary)] text-[var(--color-primary)] text-sm hover:bg-[var(--color-primary)] hover:text-white transition"
+                >
+                  Log in
+                </button>
+                <button
+                  onClick={() => navigate("/signup")}
+                  className="px-3 py-1 rounded-full bg-[var(--color-primary)] text-white text-sm hover:bg-[var(--color-primary-dark)] transition"
+                >
+                  Sign up
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}

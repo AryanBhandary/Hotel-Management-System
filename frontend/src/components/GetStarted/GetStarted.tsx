@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AUTH_CHANGE_EVENT } from "../../services/authUser";
 import { useNavigate } from "react-router-dom";
 import FeaturedRooms from "./FeaturedRooms";
 import HotelServices from "./HotelServices";
@@ -10,6 +11,38 @@ function GetStarted() {
 
   const [selectedRoom, setSelectedRoom] = useState<string>("All");
   const [guests, setGuests] = useState<number>(1);
+  const [currentUserName, setCurrentUserName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadUserName = () => {
+      try {
+        const stored = localStorage.getItem("user");
+        if (stored) {
+          const parsed = JSON.parse(stored) as { name?: string };
+          setCurrentUserName(parsed.name || null);
+        } else {
+          setCurrentUserName(null);
+        }
+      } catch {
+        setCurrentUserName(null);
+      }
+    };
+
+    loadUserName();
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "user" || event.key === null) {
+        loadUserName();
+      }
+    };
+
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener(AUTH_CHANGE_EVENT, loadUserName);
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener(AUTH_CHANGE_EVENT, loadUserName);
+    };
+  }, []);
 
   const handleSearch = () => {
     navigate("/allRooms", { state: { roomType: selectedRoom, guests } });
@@ -30,9 +63,14 @@ function GetStarted() {
         />
 
         {/* Text and Form Container (constrained) */}
-        <div className="absolute inset-0 flex flex-col justify-center items-center">
-          <div className="flex flex-col items-center text-center gap-6">
-            <h1 className="text-[var(--color-accent)]/80 text-3xl sm:text-4xl md:text-5xl font-bold">
+        <div className="absolute inset-0 flex flex-col justify-center items-center px-4">
+          <div className="flex flex-col items-center text-center gap-4 max-w-3xl">
+            {currentUserName && (
+              <p className="text-[var(--color-accent)] text-2xl sm:text-3xl md:text-4xl font-extrabold drop-shadow-md tracking-wide">
+                Welcome, <span className="font-black">{currentUserName}</span>
+              </p>
+            )}
+            <h1 className="text-[var(--color-accent)]/80 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
               Your Comfort Our Priority
             </h1>
             <p className="text-[var(--color-accent)]/80 font-semibold text-sm sm:text-base md:text-xl mt-2 max-w-2xl">

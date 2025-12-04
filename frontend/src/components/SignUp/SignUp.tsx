@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { registerUser } from "../../services/authUser";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state as { from?: { pathname?: string } })?.from?.pathname || "/allRooms";
   const [formData, setFormData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -26,11 +28,9 @@ const SignUp: React.FC = () => {
     }
 
     try {
-      const response = await registerUser(formData.name, formData.email, formData.password);
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("user", JSON.stringify(response.user));
+      await registerUser(formData.name, formData.email, formData.password);
       alert("Account created successfully!");
-      navigate("/allRooms");
+      navigate(from, { replace: true });
     } catch (error: any) {
       alert(error.message);
     }

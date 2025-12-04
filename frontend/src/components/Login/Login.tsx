@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loginUser } from "../../services/authUser";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state as { from?: { pathname?: string } })?.from?.pathname || "/allRooms";
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,17 +22,11 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await loginUser(formData.email, formData.password);
-      if (response) {
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("user", JSON.stringify(response.user));
-        alert("Logged in successfully!");
-        navigate("/allRooms");
-      } else {
-        alert("Invalid email or password!");
-      }
+      await loginUser(formData.email, formData.password);
+      alert("Logged in successfully!");
+      navigate(from, { replace: true });
     } catch (error: any) {
-      alert(error.message);
+      alert(error.message || "Invalid email or password!");
     }
   };
 

@@ -13,11 +13,10 @@ function FeaturedRooms() {
   const handleBookNow = (roomId: number) => {
     const token = localStorage.getItem("token");
     if (token) {
-      // ✅ User logged in → go to booking
       navigate(`/booking/${roomId}`);
     } else {
-      // ❌ User not logged in → go to login
-      navigate("/signup");
+      alert("Please log in or sign up first.");
+      navigate("/login");
     }
   };
 

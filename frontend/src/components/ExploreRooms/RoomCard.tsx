@@ -14,7 +14,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
     if (token) {
       navigate(`/booking/${roomId}`);
     } else {
-      navigate("/signup");
+      alert("Please log in or sign up first.");
+      navigate("/login");
     }
   };
 
