@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, parsers, mixins, viewsets
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -12,8 +13,10 @@ from .serializers import (
     BookingSerializer,
     CustomTokenObtainPairSerializer,
     TeamMemberSerializer,
+    GalleryImageSerializer,
+    AdminBookingSerializer,
 )
-from .models import Room, Booking, TeamMember
+from .models import Room, Booking, TeamMember, GalleryImage
 
 
 # ---------- AUTH VIEWS ----------
@@ -155,3 +158,67 @@ class TeamMemberListView(generics.ListAPIView):
     queryset = TeamMember.objects.all()
     serializer_class = TeamMemberSerializer
     permission_classes = [permissions.AllowAny]
+
+
+# ---------- GALLERY ----------
+
+class GalleryImageListView(generics.ListAPIView):
+    """
+    GET /api/gallery/
+    Public list of gallery images uploaded via admin.
+    """
+
+    queryset = GalleryImage.objects.all()
+    serializer_class = GalleryImageSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class GalleryImageAdminViewSet(viewsets.ModelViewSet):
+    """
+    Admin-only CRUD for gallery images (upload/delete).
+    """
+
+    queryset = GalleryImage.objects.all()
+    serializer_class = GalleryImageSerializer
+    permission_classes = [permissions.IsAdminUser]
+    parser_classes = [JSONParser, parsers.MultiPartParser, parsers.FormParser]
+
+
+class RoomAdminViewSet(viewsets.ModelViewSet):
+    """
+    Admin-only CRUD for rooms.
+    """
+
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+class BookingAdminViewSet(viewsets.ModelViewSet):
+    """
+    Admin-only CRUD/list for all bookings.
+    """
+
+    queryset = Booking.objects.select_related("user", "room").all()
+    serializer_class = AdminBookingSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+class UserAdminViewSet(viewsets.ModelViewSet):
+    """
+    Admin-only CRUD for users.
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+class TeamMemberAdminViewSet(viewsets.ModelViewSet):
+    """
+    Admin-only CRUD for team members.
+    """
+
+    queryset = TeamMember.objects.all()
+    serializer_class = TeamMemberSerializer
+    permission_classes = [permissions.IsAdminUser]

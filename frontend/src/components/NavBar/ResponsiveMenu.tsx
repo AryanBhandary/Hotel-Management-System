@@ -1,21 +1,25 @@
 import { NavLinks } from "../../constants/NavLinks";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AUTH_CHANGE_EVENT, logoutUser } from "../../services/authUser";
 
 type NavUser = {
   username: string;
   email: string;
+  is_staff?: boolean;
 };
 
 type ResponsiveMenuProps = {
   showMenu: boolean;
   setShowMenu: (val: boolean) => void;
+  isAdminView?: boolean;
 };
 
-const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
+const ResponsiveMenu = ({ showMenu, setShowMenu, isAdminView = false }: ResponsiveMenuProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentUser, setCurrentUser] = useState<NavUser | null>(null);
+  const isAdmin = Boolean((currentUser as any)?.is_staff);
 
   useEffect(() => {
     const loadUser = () => {
@@ -52,23 +56,45 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
 
   return (
     <div
-      className={`fixed top-16 left-0 w-full z-50 bg-[var(--color-secondary-light)] backdrop-blur-md overflow-hidden transform transition-transform duration-300 md:hidden
+      className={`fixed top-16 left-0 w-full z-50 bg-white/90 backdrop-blur-lg overflow-hidden transform transition-transform duration-300 md:hidden shadow-lg border-b border-[var(--color-border)]
     ${showMenu ? "scale-y-100" : "scale-y-0"}`}
       style={{ transformOrigin: "top", zIndex: 100 }}
     >
       <div className="flex flex-col p-6 space-y-6 text-[var(--color-secondary)] font-medium">
-        {NavLinks.map((link) => (
+        {!isAdminView &&
+          NavLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <button
+                key={link.path}
+                onClick={() => {
+                  navigate(link.path);
+                  setShowMenu(false);
+                }}
+                className={`transition text-left py-1 ${isActive ? "text-[var(--color-primary)]" : "hover:text-[var(--color-primary)]"}`}
+              >
+                <span className="flex items-center justify-between">
+                  {link.name}
+                  {isActive && <span className="h-1 w-10 rounded-full bg-[var(--color-primary)]" />}
+                </span>
+              </button>
+            );
+          })}
+
+        {isAdmin && !isAdminView && (
           <button
-            key={link.path}
             onClick={() => {
-              navigate(link.path);
+              navigate("/admin");
               setShowMenu(false);
             }}
-            className="transition hover:text-[var(--color-primary)] text-left"
+            className={`transition text-left py-1 ${location.pathname.startsWith("/admin") ? "text-[var(--color-primary)]" : "hover:text-[var(--color-primary)]"}`}
           >
-            {link.name}
+            <span className="flex items-center justify-between">
+              Admin
+              {location.pathname.startsWith("/admin") && <span className="h-1 w-10 rounded-full bg-[var(--color-primary)]" />}
+            </span>
           </button>
-        ))}
+        )}
 
         {/* Auth actions */}
         {currentUser ? (

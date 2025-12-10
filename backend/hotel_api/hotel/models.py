@@ -50,3 +50,18 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.role}"
+
+
+class GalleryImage(models.Model):
+    """Simple gallery for marketing photos uploaded via Django admin."""
+
+    title = models.CharField(max_length=150, blank=True)
+    image = models.ImageField(upload_to="gallery/")
+    is_featured = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-is_featured", "-created_at", "id"]
+
+    def __str__(self):
+        return self.title or f"Image {self.id}"

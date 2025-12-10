@@ -9,7 +9,21 @@ from .views import (
     BookingListCreateView,
     BookingDetailView,
     TeamMemberListView,
+    GalleryImageListView,
+    GalleryImageAdminViewSet,
+    RoomAdminViewSet,
+    BookingAdminViewSet,
+    UserAdminViewSet,
+    TeamMemberAdminViewSet,
 )
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r"admin/gallery", GalleryImageAdminViewSet, basename="admin-gallery")
+router.register(r"admin/rooms", RoomAdminViewSet, basename="admin-rooms")
+router.register(r"admin/bookings", BookingAdminViewSet, basename="admin-bookings")
+router.register(r"admin/users", UserAdminViewSet, basename="admin-users")
+router.register(r"admin/team", TeamMemberAdminViewSet, basename="admin-team")
 
 urlpatterns = [
     # Auth
@@ -28,4 +42,9 @@ urlpatterns = [
 
     # About / Team
     path('team/', TeamMemberListView.as_view(), name='team'),
+
+    # Gallery
+    path('gallery/', GalleryImageListView.as_view(), name='gallery'),
 ]
+
+urlpatterns += router.urls

@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Room, Booking, TeamMember
+from .models import Room, Booking, TeamMember, GalleryImage
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'is_staff', 'is_superuser']
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
@@ -98,7 +98,41 @@ class BookingSerializer(serializers.ModelSerializer):
         read_only_fields = ['status', 'created_at', 'user']
 
 
+class AdminBookingSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    room_detail = RoomSerializer(source='room', read_only=True)
+
+    class Meta:
+        model = Booking
+        fields = [
+            'id',
+            'user',
+            'room',
+            'room_detail',
+            'check_in',
+            'check_out',
+            'guests',
+            'status',
+            'created_at',
+        ]
+        read_only_fields = ['created_at', 'user']
+
+
 class TeamMemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeamMember
         fields = ["id", "name", "role", "image_url", "order"]
+
+
+class GalleryImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = GalleryImage
+        fields = ["id", "title", "image", "is_featured", "created_at"]
+
+    def get_image(self, obj):
+        request = self.context.get("request")
+        if request:
+            return request.build_absolute_uri(obj.image.url)
+        return obj.image.url

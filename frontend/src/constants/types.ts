@@ -1,4 +1,5 @@
 export interface Room {
+  number?: string;
   id: number;
   availability: boolean;
   guests: number;

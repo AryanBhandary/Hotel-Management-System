@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Room, Booking, TeamMember
+from .models import Room, Booking, TeamMember, GalleryImage
 
 
 @admin.register(Room)
@@ -22,3 +22,11 @@ class TeamMemberAdmin(admin.ModelAdmin):
     list_display = ("name", "role", "order")
     search_fields = ("name", "role")
     ordering = ("order", "id")
+
+
+@admin.register(GalleryImage)
+class GalleryImageAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "is_featured", "created_at")
+    list_filter = ("is_featured", "created_at")
+    search_fields = ("title",)
+    readonly_fields = ("created_at",)

@@ -9,5 +9,6 @@ export type NavLink = {
     { name: "Book a Room", path: "/allRooms" },
     { name: "About Us", path: "/aboutUs" },
     { name: "Contact Us", path: "/contactUs" },
+    { name: "Gallery", path: "/gallery" },
   ];
   
