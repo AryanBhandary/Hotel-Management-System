@@ -1,4 +1,5 @@
-import { ReactElement, useEffect } from "react";
+import type { ReactElement } from "react";
+import { useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 type ProtectedRouteProps = {
@@ -24,4 +25,3 @@ const ProtectedRoute = ({ children, message = "Please log in or sign up first." 
 };
 
 export default ProtectedRoute;
-

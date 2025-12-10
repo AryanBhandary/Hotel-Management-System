@@ -1,14 +1,35 @@
+import { useEffect, useMemo, useState } from "react";
 import { FaUsers } from "react-icons/fa";
-import rooms from "../../constants/roomsData";
 import type { Room } from "../../constants/types";
+import roomsData from "../../constants/roomsData";
+import { fetchRooms } from "../../services/hotelApi";
 import { useNavigate } from "react-router-dom";
 
 function FeaturedRooms() {
   const navigate = useNavigate();
+  const [rooms, setRooms] = useState<Room[]>(roomsData);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const randomRooms: Room[] = [...rooms]
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 3);
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const fetched = await fetchRooms();
+        setRooms(fetched);
+      } catch (err: any) {
+        setError(err?.message || "Unable to load featured rooms, showing defaults.");
+        setRooms(roomsData);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
+
+  const randomRooms: Room[] = useMemo(
+    () => [...rooms].sort(() => 0.5 - Math.random()).slice(0, 3),
+    [rooms]
+  );
 
   const handleBookNow = (roomId: number) => {
     const token = localStorage.getItem("token");
@@ -20,15 +41,23 @@ function FeaturedRooms() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="py-10 px-6 bg-[var(--color-accent)] text-center text-[var(--color-secondary)]">
+        Loading featured rooms...
+      </div>
+    );
+  }
+
   return (
     <div className="py-10 px-6 bg-[var(--color-accent)]">
+      {error && <p className="text-center text-red-600 mb-4">{error}</p>}
       <div className="flex flex-wrap justify-center gap-6">
         {randomRooms.map((room: Room) => (
           <div
             key={room.id}
             className="w-[350px] bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex flex-col border-[var(--color-secondary-light)] border"
           >
-            {/* ---------- Room Image ---------- */}
             <div className="relative w-full h-48 overflow-hidden rounded-t-xl">
               <img
                 src={room.image}
@@ -45,7 +74,6 @@ function FeaturedRooms() {
               </div>
             </div>
 
-            {/* ---------- Room Info ---------- */}
             <div className="p-5 flex flex-col flex-1">
               <div className="flex justify-between text-left mb-2">
                 <h3 className="text-xl font-semibold">{room.type}</h3>
@@ -59,7 +87,6 @@ function FeaturedRooms() {
                 {room.description}
               </p>
 
-              {/* ---------- Amenities ---------- */}
               <div className="flex flex-wrap gap-2 mb-3">
                 {room.amenities.map((amenity, index) => (
                   <span
@@ -71,11 +98,10 @@ function FeaturedRooms() {
                 ))}
               </div>
 
-              {/* ---------- Actions ---------- */}
               <div className="mt-auto">
                 <div className="mb-1 flex justify-between">
                   <p className="text-[var(--color-primary)] font-bold pt-2">
-                    ${room.price} / night
+                    NPR {room.price.toLocaleString()} / night
                   </p>
                 </div>
                 <div className="mt-auto flex justify-center gap-5">

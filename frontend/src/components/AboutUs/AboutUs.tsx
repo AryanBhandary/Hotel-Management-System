@@ -1,8 +1,27 @@
+import { useEffect, useState } from "react";
 import { FaConciergeBell, FaUtensils, FaSpa } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { fetchTeamMembers, type TeamMember } from "../../services/hotelApi";
 
 function AboutUs() {
   const navigate = useNavigate();
+  const [team, setTeam] = useState<TeamMember[]>([]);
+  const [loadingTeam, setLoadingTeam] = useState(true);
+  const [teamError, setTeamError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadTeam = async () => {
+      try {
+        const members = await fetchTeamMembers();
+        setTeam(members);
+      } catch (err: any) {
+        setTeamError(err?.message || "Unable to load team right now.");
+      } finally {
+        setLoadingTeam(false);
+      }
+    };
+    loadTeam();
+  }, []);
 
   return (
     <div>
@@ -120,28 +139,38 @@ function AboutUs() {
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            {[
-              { name: "Sujal Shrestha", role: "General Manager", img: "" },
-              { name: "Prakash Poudel", role: "Head Chef", img: "" },
-              { name: "Anisha Adhikari", role: "Spa Manager", img: "" },
-              { name: "Sandhya Basnet", role: "Concierge Lead", img: "" }
-            ].map((member, i) => (
-              <div
-                key={i}
-                className="bg-gray-50 rounded-xl shadow-md overflow-hidden text-center"
-              >
-                <img
-                  src={member.img || "https://via.placeholder.com/300x220"}
-                  alt={member.name}
-                  className="w-full h-48 sm:h-56 md:h-56 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="font-bold text-black mb-1 text-sm sm:text-base">{member.name}</h3>
-                  <p className="text-gray-600 text-sm sm:text-sm">{member.role}</p>
-                </div>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            {teamError && (
+              <p className="text-red-600 text-center mb-4">{teamError}</p>
+            )}
+            {loadingTeam ? (
+              <p className="text-center text-gray-600">Loading team...</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+                {team.length === 0 ? (
+                  <p className="text-center text-gray-600 col-span-full">
+                    Team information will be updated soon.
+                  </p>
+                ) : (
+                  team.map((member) => (
+                    <div
+                      key={member.id}
+                      className="bg-gray-50 rounded-xl shadow-md overflow-hidden text-center"
+                    >
+                      <img
+                        src={member.image_url || "https://via.placeholder.com/300x220"}
+                        alt={member.name}
+                        className="w-full h-48 sm:h-56 md:h-56 object-cover"
+                      />
+                      <div className="p-4">
+                        <h3 className="font-bold text-black mb-1 text-sm sm:text-base">{member.name}</h3>
+                        <p className="text-gray-600 text-sm sm:text-sm">{member.role}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
-            ))}
+            )}
           </div>
         </section>
 

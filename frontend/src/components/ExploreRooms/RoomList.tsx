@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import rooms from "../../constants/roomsData";
 import RoomCard from "./RoomCard";
 import RoomFilter from "../RoomsFilter/RoomFilter";
 import ResponsiveRoomFilter from "../RoomsFilter/ResponsiveRoomFilter";
 import { FaArrowRight } from "react-icons/fa";
 import type { Room } from "../../constants/types";
+import roomsData from "../../constants/roomsData";
+import { fetchRooms } from "../../services/hotelApi";
 
 const DRAWER_WIDTH = 300;
 
@@ -15,6 +16,9 @@ const RoomsList = ({ searchParams }: { searchParams: { roomType: string; guests:
   const [bedPreferences, setBedPreferences] = useState<string[]>([]);
   const [visibleCount, setVisibleCount] = useState(7);
   const [isLoading, setIsLoading] = useState(false);
+  const [rooms, setRooms] = useState<Room[]>(roomsData);
+  const [loadingRooms, setLoadingRooms] = useState(true);
+  const [roomsError, setRoomsError] = useState<string | null>(null);
   const [showFilter, setShowFilter] = useState(false);
   const [isCompact, setIsCompact] = useState(false);
 
@@ -33,9 +37,26 @@ const RoomsList = ({ searchParams }: { searchParams: { roomType: string; guests:
       if (bedPreferences.length && !bedPreferences.includes(room.bedPreference)) return false;
       return true;
     });
-  }, [searchParams, budget, selectedAmenities, selectedRoomTypes, bedPreferences]);
+  }, [rooms, searchParams, budget, selectedAmenities, selectedRoomTypes, bedPreferences]);
 
   const currentRooms = filteredRooms.slice(0, visibleCount);
+
+  useEffect(() => {
+    const loadRooms = async () => {
+      try {
+        setLoadingRooms(true);
+        const fetched = await fetchRooms();
+        setRooms(fetched);
+      } catch (error: any) {
+        setRoomsError(error?.message || "Unable to load rooms from server, showing defaults.");
+        setRooms(roomsData);
+      } finally {
+        setLoadingRooms(false);
+      }
+    };
+
+    loadRooms();
+  }, []);
 
   // Infinite scroll
   useEffect(() => {
@@ -121,7 +142,10 @@ const RoomsList = ({ searchParams }: { searchParams: { roomType: string; guests:
         )}
 
         {/* Room cards */}
-        {currentRooms.length > 0 ? (
+        {roomsError && <p className="text-center text-red-600 mb-2">{roomsError}</p>}
+        {loadingRooms ? (
+          <p className="text-center text-[var(--color-secondary)]">Loading rooms...</p>
+        ) : currentRooms.length > 0 ? (
           currentRooms.map((room: Room) => <RoomCard key={room.id} room={room} />)
         ) : (
           <p className="text-center text-[var(--color-secondary)]">No rooms match your filters.</p>

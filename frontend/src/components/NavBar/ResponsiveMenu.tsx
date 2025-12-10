@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AUTH_CHANGE_EVENT, logoutUser } from "../../services/authUser";
 
 type NavUser = {
-  name: string;
+  username: string;
   email: string;
 };
 
@@ -73,6 +73,15 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
         {/* Auth actions */}
         {currentUser ? (
           <div className="pt-4 border-t border-[var(--color-border)] flex flex-col space-y-3">
+            <button
+              onClick={() => {
+                navigate("/profile");
+                setShowMenu(false);
+              }}
+              className="w-full px-4 py-2 rounded-full border border-[var(--color-primary)] text-[var(--color-primary)] text-sm hover:bg-[var(--color-primary)] hover:text-white transition"
+            >
+              Profile
+            </button>
             <button
               onClick={handleLogout}
               className="w-full px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm hover:bg-[var(--color-primary-dark)] transition"

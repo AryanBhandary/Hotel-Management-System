@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: { pathname?: string } })?.from?.pathname || "/allRooms";
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ usernameOrEmail: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await loginUser(formData.email, formData.password);
+      await loginUser(formData.usernameOrEmail, formData.password);
       alert("Logged in successfully!");
       navigate(from, { replace: true });
     } catch (error: any) {
@@ -39,10 +39,10 @@ const Login: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
+            type="text"
+            name="usernameOrEmail"
+            placeholder="Username or Email"
+            value={formData.usernameOrEmail}
             onChange={handleChange}
             autoComplete="off"
             className="text-field"

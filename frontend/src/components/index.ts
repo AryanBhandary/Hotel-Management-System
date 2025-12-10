@@ -8,3 +8,4 @@ export {default as RoomDetails} from './RoomDetails/RoomDetails';
 export {default as Login} from './Login/Login';
 export {default as SignUp} from './SignUp/SignUp';
 export {default as Book} from './BookingForm/Booking'
+export {default as Profile} from './Profile/Profile';

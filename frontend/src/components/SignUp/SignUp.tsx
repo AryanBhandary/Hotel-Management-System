@@ -7,7 +7,7 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: { pathname?: string } })?.from?.pathname || "/allRooms";
-  const [formData, setFormData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+  const [formData, setFormData] = useState({ username: "", email: "", password: "", confirmPassword: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -28,7 +28,7 @@ const SignUp: React.FC = () => {
     }
 
     try {
-      await registerUser(formData.name, formData.email, formData.password);
+      await registerUser(formData.username, formData.email, formData.password);
       alert("Account created successfully!");
       navigate(from, { replace: true });
     } catch (error: any) {
@@ -46,9 +46,9 @@ const SignUp: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
+            name="username"
+            placeholder="Username"
+            value={formData.username}
             onChange={handleChange}
             autoComplete="off"
             className="text-field"

@@ -18,8 +18,8 @@ function GetStarted() {
       try {
         const stored = localStorage.getItem("user");
         if (stored) {
-          const parsed = JSON.parse(stored) as { name?: string };
-          setCurrentUserName(parsed.name || null);
+          const parsed = JSON.parse(stored) as { username?: string };
+          setCurrentUserName(parsed.username || null);
         } else {
           setCurrentUserName(null);
         }
@@ -51,7 +51,7 @@ function GetStarted() {
   return (
     <>
       {/* Full-width Hero Section */}
-      <section className="relative w-full h-[600px] sm:h-[550px] md:h-[650px] lg:h-[700px]">
+      <section className="relative w-full h-[600px] sm:h-[550px] md:h-[650px] lg:h-[960px]">
         {/* Background Video */}
         <video
           src={video}
@@ -59,7 +59,7 @@ function GetStarted() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover brightness-50"
+          className="w-full h-full object-cover brightness-70"
         />
 
         {/* Text and Form Container (constrained) */}

@@ -2,7 +2,7 @@ import './App.css'
 import './index.css'
 
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { NavBar, Footer, AllRooms, ContactUs, AboutUs, GetStarted, Login, SignUp, RoomDetails, Book } from './components'
+import { NavBar, Footer, AllRooms, ContactUs, AboutUs, GetStarted, Login, SignUp, RoomDetails, Book, Profile } from './components'
 import ProtectedRoute from './components/ProtectedRoute'
 import ScrollToTop from './hooks/ScrollToTop'
 
@@ -44,6 +44,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Book />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />

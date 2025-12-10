@@ -1,18 +1,42 @@
 import { useParams, useNavigate } from "react-router-dom";
-import rooms from "../../constants/roomsData";
+import { useEffect, useState } from "react";
 import Gallery from "./Gallery";
 import RoomInfoSidebar from "./RoomInfoSidebar";
 import RoomInfoSections from "./RoomInfoSections";
+import type { Room } from "../../constants/types";
+import { fetchRoomById } from "../../services/hotelApi";
 
 export default function RoomDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const room = rooms.find((r) => r.id === Number(id));
+  const [room, setRoom] = useState<Room | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadRoom = async () => {
+      if (!id) return;
+      try {
+        const fetched = await fetchRoomById(Number(id));
+        setRoom(fetched);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadRoom();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600 mt-[10%]">
+        Loading room details...
+      </div>
+    );
+  }
 
   if (!room) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-600 mt-[10%]">
-        Room not found 😕
+        Room not found!
       </div>
     );
   }

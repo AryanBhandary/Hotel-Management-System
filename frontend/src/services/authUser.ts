@@ -1,6 +1,6 @@
-type AuthenticatedUser = {
+export type AuthenticatedUser = {
   id: number;
-  name: string;
+  username: string;
   email: string;
 };
 
@@ -10,15 +10,15 @@ export type AuthResponse = {
   refresh: string;
 };
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+export const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 const AUTH_EVENT = "hotel-auth-change";
 
-const buildHeaders = (headers?: HeadersInit) => ({
+export const buildHeaders = (headers?: HeadersInit) => ({
   "Content-Type": "application/json",
   ...(headers || {}),
 });
 
-const handleResponse = async (response: Response) => {
+export const handleResponse = async (response: Response) => {
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     throw new Error(data.detail || data.message || "Something went wrong, please try again.");
@@ -26,7 +26,7 @@ const handleResponse = async (response: Response) => {
   return data;
 };
 
-const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
+export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers: buildHeaders(options.headers),
@@ -43,19 +43,19 @@ const persistSession = (payload: AuthResponse) => {
   }
 };
 
-export const registerUser = async (name: string, email: string, password: string): Promise<AuthResponse> => {
-  const payload: AuthResponse = await apiFetch("/accounts/register/", {
+export const registerUser = async (username: string, email: string, password: string): Promise<AuthResponse> => {
+  const payload: AuthResponse = await apiFetch("/auth/register/", {
     method: "POST",
-    body: JSON.stringify({ name, email, password }),
+    body: JSON.stringify({ username, email, password }),
   });
   persistSession(payload);
   return payload;
 };
 
-export const loginUser = async (email: string, password: string): Promise<AuthResponse> => {
-  const payload: AuthResponse = await apiFetch("/accounts/token/", {
+export const loginUser = async (usernameOrEmail: string, password: string): Promise<AuthResponse> => {
+  const payload: AuthResponse = await apiFetch("/auth/login/", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ username: usernameOrEmail, password }),
   });
   persistSession(payload);
   return payload;
@@ -65,20 +65,43 @@ export const getCurrentUser = async (): Promise<AuthenticatedUser | null> => {
   const token = localStorage.getItem("token");
   if (!token) return null;
 
-  const response = await apiFetch("/accounts/me/", {
+  const response = await apiFetch("/auth/me/", {
     headers: buildHeaders({
       Authorization: `Bearer ${token}`,
     }),
   });
 
-  return response.user ?? null;
+  return response ?? null;
+};
+
+export const updateCurrentUser = async (payload: Partial<Pick<AuthenticatedUser, "username" | "email">>) => {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("You need to log in first.");
+
+  const response = await apiFetch("/auth/me/", {
+    method: "PATCH",
+    headers: buildHeaders({
+      Authorization: `Bearer ${token}`,
+    }),
+    body: JSON.stringify(payload),
+  });
+
+  // Persist updated user locally
+  if (response) {
+    localStorage.setItem("user", JSON.stringify(response));
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(AUTH_EVENT));
+    }
+  }
+
+  return response as AuthenticatedUser;
 };
 
 export const refreshAccessToken = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
   if (!refreshToken) return null;
 
-  const response = await apiFetch("/accounts/token/refresh/", {
+  const response = await apiFetch("/auth/token/refresh/", {
     method: "POST",
     body: JSON.stringify({ refresh: refreshToken }),
   });
